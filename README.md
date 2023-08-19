@@ -82,7 +82,7 @@ Ir al navegador/postman/frontend y pegar la siguiente ruta
 Así se encuentra organizado el proyecto en cuestión.
 
 ```
-📁 backendtechtitans/
+📁 backend-tech-titans/
 ├───📁 app/
 │   ├───📁 config/
 |   |   ├───📁 file/
@@ -100,6 +100,7 @@ Así se encuentra organizado el proyecto en cuestión.
 │   ├───📁 exceptions/
 │   │   └───📄base.exceptions.js
 │   ├───📁 helpers/
+|   |   ├───📄 image.helpers.js
 │   │   └───📄 validate.helpers.js
 │   ├───📁 mails/
 │   |   ├───📁 pages/
@@ -109,7 +110,14 @@ Así se encuentra organizado el proyecto en cuestión.
 │   │   ├───📄 error_handler.middleware.js
 │   │   └───📄 root_path.middleware.js
 │   ├───📁 models/
-│   │   └───📄.gitkeep
+|   |   ├───📄 asistencia.model.js
+|   |   ├───📄 curso.model.js
+|   |   ├───📄 docente.model.js
+|   |   ├───📄 pago.model.js
+|   |   ├───📄 relaciones.model.js
+|   |   ├───📄 rol.model.js
+|   |   ├───📄 usuario.model.js
+│   │   └───📄 usuarios_roles.model.js
 │   ├───📁 providers/
 │   │   └───📄.gitkeep
 │   ├───📁 routes/

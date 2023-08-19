@@ -6,8 +6,6 @@ import bodyParser from "body-parser";
 import validate from "./utils/validateEnv.js";
 import { logger } from "./utils/winston.logger.js";
 import helmet from "helmet";
-
-
 import router from "./routes/index.routes.js";
 
 config();
@@ -27,8 +25,8 @@ let corsOptions = {
         if (whitelist.indexOf(origin) !== -1 || !origin) {
             callback(null, true);
         } else {
-            logger.error('Not allowed by CORS', { origin });
-            callback(new Error('Not allowed by CORS'));
+            logger.error('No permitido por CORS', { origin });
+            callback(new Error('No permitido por CORS'));
         }
     },
 };
@@ -67,17 +65,21 @@ if (entorno === 'prod') {
 }
 
 // Importamos los modelos
+import "./models/asistencia.model.js";
+import "./models/curso.model.js";
+import "./models/docente.model.js";
+import "./models/pago.model.js";
+import "./models/relaciones.model.js";
+import "./models/rol.model.js";
+import "./models/usuario.model.js";
+import "./models/usuarios_roles.model.js";
 
 app.use((req, res, next) => {
     req.timezone = tz; // Establece la zona horaria deseada
     next();
 });
 
-app.use((req, res, next) => {
-    if (req.originalUrl === '/favicon.ico') {
-        return res.status(204).end();
-    }
-    next();
-});
+app.get('/favicon.ico', (req, res) => res.status(204));
+
 
 export default app;
