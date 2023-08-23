@@ -21,14 +21,8 @@ const Usuarios_roles = sequelize.define('usuarios_roles', {
             model: Rol,
             key: 'id'
         }
-    },
-    deletedAt: {
-        type: DataTypes.DATE,
-        allowNull: true,
-        defaultValue: null
     }
 }, {
-    paranoid: true,
     timestamps: true
 });
 

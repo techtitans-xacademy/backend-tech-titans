@@ -23,14 +23,13 @@ const createRoleIfNotExists = async(roleName) => {
 
 
 sequelize
-    .sync({ alter: false })
+    .sync({ force: false })
     .then(() => {
         console.log(`La conexión a la base de datos se ha establecido con éxito`.bgGreen.white);
         logger.info('La conexión a la base de datos se ha establecido con éxito');
         createRoleIfNotExists("admin");
         createRoleIfNotExists("docente");
         createRoleIfNotExists("estudiante");
-        createRoleIfNotExists("user");
         createUploadsFolder();
         app.listen(app.get('port'), () => {
             console.log(`El servidor se ejecuta en el puerto: ${app.get('port')} sin problemas. En el entorno de: ${app.get('env')}`.green)

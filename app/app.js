@@ -56,7 +56,7 @@ app.use(bodyParser.json({ extended: true }));
 app.use(bodyParser.urlencoded({ limit: "50mb", extended: true }));
 
 app.set("env", entorno);
-app.set("port", process.env.API_PORT || 3000);
+app.set("port", process.env.API_PORT || 8080);
 app.use(express.json());
 app.use("/", router);
 

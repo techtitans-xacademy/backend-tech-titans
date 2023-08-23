@@ -3,7 +3,7 @@ import smtpTransport from "nodemailer-smtp-transport";
 import fs from "fs";
 import Handlebars from "handlebars";
 import ejs from "ejs";
-import { logger } from '../utils/winston.logger';
+import { logger } from '../utils/winston.logger.js';
 
 const name = process.env.NAME_MAIL;
 const user = process.env.USER_MAIL;

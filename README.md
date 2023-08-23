@@ -64,6 +64,16 @@ Instalar dependencias
 ```bash
   npm install
 ```
+
+Copiar el archivo `.env.example` en `.env` para que el proyecto funcione
+
+```bash
+  cp .env.example .env
+```
+***Tanto en linux como en Windows los comandos son iguales***
+
+Luego rellenar todos los campos del `.env` para que el proyecto funcione.
+
 Iniciar el servidor
 
 ```bash
@@ -90,7 +100,8 @@ Así se encuentra organizado el proyecto en cuestión.
 |   |   ├───📄 cloudinary.config.js
 │   │   └───📄 database.config.js
 │   ├───📁 controllers/
-│   │   └───📄.gitkeep
+│   │   ├───📄 auth.controllers.js
+│   │   └───📄 rol.controllers.js
 │   ├───📁 database/
 │   |   ├───📁 migrations/
 │   │   |    └───📄.gitkeep
@@ -100,15 +111,23 @@ Así se encuentra organizado el proyecto en cuestión.
 │   ├───📁 exceptions/
 │   │   └───📄base.exceptions.js
 │   ├───📁 helpers/
+|   |   ├───📄 generatePasswordFake.helpers.js
+|   |   ├───📄 generateTokens.helpers.js
 |   |   ├───📄 image.helpers.js
 │   │   └───📄 validate.helpers.js
 │   ├───📁 mails/
 │   |   ├───📁 pages/
-│   │   |    └───📄.gitkeep
+|   |   |   ├───📄 account_data.html
+|   |   |   ├───📄 confirm.html
+|   |   |   ├───📄 forgot.html
+|   |   |   ├───📄 new_password.html
+│   │   |   └───📄 password_ok.html
 │   │   └───📄config.mails.js
 │   ├───📁 middleware/
 │   │   ├───📄 error_handler.middleware.js
-│   │   └───📄 root_path.middleware.js
+│   │   ├───📄 register.middleware.js
+│   │   ├───📄 root_path.middleware.js
+│   │   └───📄 verifyUser.middleware.js
 │   ├───📁 models/
 |   |   ├───📄 asistencia.model.js
 |   |   ├───📄 curso.model.js
@@ -119,18 +138,22 @@ Así se encuentra organizado el proyecto en cuestión.
 |   |   ├───📄 usuario.model.js
 │   │   └───📄 usuarios_roles.model.js
 │   ├───📁 providers/
-│   │   └───📄.gitkeep
+│   │   ├───📄 auth.providers.js
+│   │   └───📄 rol.providers.js
 │   ├───📁 routes/
+│   │   ├───📄auth.routes.js
 │   │   └───📄index.routes.js
 │   ├───📁 services/
-│   │   └───📄.gitkeep
+│   │   ├───📄 auth.services.js
+│   │   └───📄 rol.services.js
 │   ├───📁 themes/
 │   │   └───📄.gitkeep
 │   ├───📁 utils/
+│   │   ├───📄 blacklist-email.js
 │   │   ├───📄 validateEnv.js
 │   │   └───📄 winston.logger.js
 │   └───📁 validations/
-│       └───📄.gitkeep
+│       └───📄auth.validations.js
 ├───📄 .env.example
 ├───📄 package-lock.json
 ├───📄 package.json

@@ -16,7 +16,7 @@ const validate = cleanEnv(process.env, {
     LOG_LEVEL: str({ choices: ['debug', 'info', 'error'] }),
     HOST_FRONT: str(),
     HOST_FRONT_EMAIL: str(),
-    SECRET_KEY: str(),
+    JWT_SECRET: str(),
     API_PROTOCOL: str(),
     NAME_MAIL: str(),
     USER_MAIL: str(), //email()
