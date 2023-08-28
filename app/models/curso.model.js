@@ -3,6 +3,7 @@ import sequelize from "../config/database.config.js";
 
 const Curso = sequelize.define(
     "curso", {
+
         id: {
             type: DataTypes.INTEGER,
             primaryKey: true,
