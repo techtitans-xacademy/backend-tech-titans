@@ -5,6 +5,7 @@ import Usuarios_roles from "./usuarios_roles.model.js";
 import Asistencia from "./asistencia.model.js";
 import Rol from "./rol.model.js";
 import Pago from "./pago.model.js";
+import Categoria from "./categoria.model.js";
 
 
 // Relation N:N Usuario-Rol
@@ -36,6 +37,15 @@ Docente.hasMany(Curso, {
 });
 
 Curso.belongsTo(Docente, { foreinkey: "docente_id", targetId: "id" });
+
+// Relation 1:N Categoria - Curso
+Categoria.hasMany(Curso, {
+    foreinkey: "categoria_id",
+    sourceKey: "id",
+    name: "categoriaId"
+});
+
+Curso.belongsTo(Categoria, { foreinkey: "categoria_id", targetId: "id", name: "categoriaId" });
 
 // Relation 1:N Curso - Asistencia
 Curso.hasMany(Asistencia, {
