@@ -3,12 +3,13 @@ import { deleteCategoriaProvider, getCategoriasPorIdProvider, getCategoriasProvi
 config();
 
 export const getCategoriasService = async(query) => {
-    const { l, p } = query;
+    const { l, p, borrado = false } = query;
 
     const limit = parseInt(l) || parseInt(process.env.PAGE_SIZE);
     const page = parseInt(p) || 1;
+    const deleteReg = Boolean(borrado);
 
-    return getCategoriasProvider(limit, page);
+    return getCategoriasProvider(limit, page, deleteReg);
 }
 
 export const getCategoriasPorIdService = async(params) => {

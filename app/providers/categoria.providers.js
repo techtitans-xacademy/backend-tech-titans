@@ -2,8 +2,13 @@ import Categoria from "../models/categoria.model.js";
 import Usuario from "../models/usuario.model.js";
 import { logger } from "../utils/winston.logger.js";
 
+// import sequelize from "../config/database.config.js";
 
-export const getCategoriasProvider = async(limit, page) => {
+// const Op = sequelize.Sequelize.Op;
+
+import { Op } from 'sequelize';
+
+export const getCategoriasProvider = async(limit, page, borrado) => {
     try {
         const size = await Categoria.count();
         const totalPages = Math.ceil(size / limit);
@@ -19,7 +24,21 @@ export const getCategoriasProvider = async(limit, page) => {
             lastPage = 1;
         }
 
+        const whereCondition = {};
+
+        if (borrado == true) {
+            whereCondition.deletedAt = {
+                [Op.ne]: null
+            };
+        } else if (borrado == false) {
+            whereCondition.deletedAt = null;
+        }
+
+
+        console.log(whereCondition);
         const categorias = await Categoria.findAll({
+            paranoid: false,
+            where: whereCondition,
             limit,
             offset,
             attributes: { exclude: ['deletedAt', 'createdAt', 'updatedAt', 'usuarioId'] },
@@ -36,12 +55,14 @@ export const getCategoriasProvider = async(limit, page) => {
         return {
             statusCode: 200,
             data: categorias,
-            page,
-            limit,
-            total: size,
-            pages: totalPages,
-            lastPage,
-            nextPage
+            pagination: {
+                page,
+                limit,
+                total: size,
+                totalPages,
+                lastPage,
+                nextPage
+            }
         }
     } catch (err) {
         console.error('Hubo un error al querer obtener una categoria: ', err);
