@@ -18,7 +18,7 @@ export function checkValidEmail(req, res, next) {
     if (!result.valid) {
         logger.error('El email con el que se quiere registrar esta en una lista negra.')
         return res.status(400).json({
-            "msg": "No es un email válido o no está permitido"
+            "mensaje": "No es un email válido o no está permitido"
         })
     }
 
