@@ -10,7 +10,21 @@ import { Op } from 'sequelize';
 
 export const getCategoriasProvider = async(limit, page, borrado) => {
     try {
-        const size = await Categoria.count();
+        const whereCondition = {};
+
+        if (borrado === true) {
+            whereCondition.deletedAt = {
+                [Op.ne]: null
+            };
+        } else if (borrado === false) {
+            whereCondition.deletedAt = null;
+        }
+
+
+        const size = await Categoria.count({
+            paranoid: borrado,
+            where: whereCondition
+        });
         const totalPages = Math.ceil(size / limit);
         const offset = (page - 1) * limit;
         let nextPage = page + 1;
@@ -24,20 +38,8 @@ export const getCategoriasProvider = async(limit, page, borrado) => {
             lastPage = 1;
         }
 
-        const whereCondition = {};
-
-        if (borrado == true) {
-            whereCondition.deletedAt = {
-                [Op.ne]: null
-            };
-        } else if (borrado == false) {
-            whereCondition.deletedAt = null;
-        }
-
-
-        console.log(whereCondition);
         const categorias = await Categoria.findAll({
-            paranoid: false,
+            paranoid: borrado,
             where: whereCondition,
             limit,
             offset,
@@ -52,16 +54,23 @@ export const getCategoriasProvider = async(limit, page, borrado) => {
             }]
         });
 
-        return {
-            statusCode: 200,
-            data: categorias,
-            pagination: {
-                page,
-                limit,
-                total: size,
-                totalPages,
-                lastPage,
-                nextPage
+        if (size > 0) {
+            return {
+                statusCode: 200,
+                data: categorias,
+                pagination: {
+                    page,
+                    limit,
+                    total: size,
+                    totalPages,
+                    lastPage,
+                    nextPage
+                }
+            }
+        } else {
+            return {
+                statusCode: 200,
+                data: categorias
             }
         }
     } catch (err) {
