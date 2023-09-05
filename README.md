@@ -101,6 +101,8 @@ Así se encuentra organizado el proyecto en cuestión.
 │   │   └───📄 database.config.js
 │   ├───📁 controllers/
 │   │   ├───📄 auth.controllers.js
+│   │   ├───📄 categoria.controllers.js
+│   │   ├───📄 curso.controllers.js
 │   │   └───📄 rol.controllers.js
 │   ├───📁 database/
 │   |   ├───📁 migrations/
@@ -130,6 +132,7 @@ Así se encuentra organizado el proyecto en cuestión.
 │   │   └───📄 verifyUser.middleware.js
 │   ├───📁 models/
 |   |   ├───📄 asistencia.model.js
+|   |   ├───📄 categoria.model.js
 |   |   ├───📄 curso.model.js
 |   |   ├───📄 docente.model.js
 |   |   ├───📄 pago.model.js
@@ -139,12 +142,17 @@ Así se encuentra organizado el proyecto en cuestión.
 │   │   └───📄 usuarios_roles.model.js
 │   ├───📁 providers/
 │   │   ├───📄 auth.providers.js
+│   │   ├───📄 categoria.providers.js
+│   │   ├───📄 curso.providers.js
 │   │   └───📄 rol.providers.js
 │   ├───📁 routes/
-│   │   ├───📄auth.routes.js
-│   │   └───📄index.routes.js
+│   │   ├───📄 auth.routes.js
+│   │   ├───📄 categoria.routes.js
+│   │   └───📄 index.routes.js
 │   ├───📁 services/
 │   │   ├───📄 auth.services.js
+│   │   ├───📄 categoria.services.js
+│   │   ├───📄 curso.services.js
 │   │   └───📄 rol.services.js
 │   ├───📁 themes/
 │   │   └───📄.gitkeep
@@ -153,7 +161,8 @@ Así se encuentra organizado el proyecto en cuestión.
 │   │   ├───📄 validateEnv.js
 │   │   └───📄 winston.logger.js
 │   └───📁 validations/
-│       └───📄auth.validations.js
+│       ├───📄 auth.validations.js
+│       └───📄 categoria.validations.js
 ├───📄 .env.example
 ├───📄 package-lock.json
 ├───📄 package.json
@@ -164,4 +173,3 @@ Así se encuentra organizado el proyecto en cuestión.
 ## Quien desarrollo esta api
 
 - [@FabrizioFerroni](https://www.github.com/FabrizioFerroni)
-- [@Hernan](https://www.github.com/)

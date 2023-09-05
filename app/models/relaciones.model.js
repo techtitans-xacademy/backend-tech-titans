@@ -47,6 +47,14 @@ Categoria.hasMany(Curso, {
 
 Curso.belongsTo(Categoria, { foreinkey: "categoria_id", targetId: "id", name: "categoriaId" });
 
+// Relation 1:N Usuario - Categoria
+Usuario.hasMany(Categoria, {
+    foreinkey: "usuario_id",
+    sourceKey: "id",
+});
+
+Categoria.belongsTo(Usuario, { foreinkey: "usuario_id", targetId: "id" });
+
 // Relation 1:N Curso - Asistencia
 Curso.hasMany(Asistencia, {
     foreinkey: "curso_id",
