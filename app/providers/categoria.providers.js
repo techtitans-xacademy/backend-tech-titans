@@ -2,10 +2,6 @@ import Categoria from "../models/categoria.model.js";
 import Usuario from "../models/usuario.model.js";
 import { logger } from "../utils/winston.logger.js";
 
-// import sequelize from "../config/database.config.js";
-
-// const Op = sequelize.Sequelize.Op;
-
 import { Op } from 'sequelize';
 
 export const getCategoriasProvider = async(limit, page, borrado) => {
