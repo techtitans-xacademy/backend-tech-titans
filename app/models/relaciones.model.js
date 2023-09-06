@@ -78,3 +78,11 @@ Usuario.hasMany(Pago, {
 });
 
 Pago.belongsTo(Usuario, { foreinkey: "usuario_id", targetId: "id" });
+
+// Relation 1:N Usuario - Docente
+Usuario.hasMany(Docente, {
+    foreinkey: "usuario_id",
+    sourceKey: "id",
+});
+
+Docente.belongsTo(Usuario, { foreinkey: "usuario_id", targetId: "id" });

@@ -1,6 +1,7 @@
 import { Router } from "express";
 import authRoutes from "./auth.routes.js";
 import categoriaRoutes from "./categorias.routes.js";
+import docenteRoutes from "./docentes.routes.js";
 
 const router = Router();
 router.get("/", (req, res) => {
@@ -11,5 +12,6 @@ router.get("/", (req, res) => {
 
 router.use("/auth", authRoutes);
 router.use("/api", categoriaRoutes);
+router.use("/api", docenteRoutes);
 
 export default router;

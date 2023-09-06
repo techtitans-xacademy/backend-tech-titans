@@ -18,7 +18,7 @@ export const getCategoriasProvider = async(limit, page, borrado) => {
 
 
         const size = await Categoria.count({
-            paranoid: borrado,
+            paranoid: false,
             where: whereCondition
         });
         const totalPages = Math.ceil(size / limit);
@@ -35,7 +35,7 @@ export const getCategoriasProvider = async(limit, page, borrado) => {
         }
 
         const categorias = await Categoria.findAll({
-            paranoid: borrado,
+            paranoid: false,
             where: whereCondition,
             limit,
             offset,
@@ -70,9 +70,9 @@ export const getCategoriasProvider = async(limit, page, borrado) => {
             }
         }
     } catch (err) {
-        console.error('Hubo un error al querer obtener una categoria: ', err);
-        logger.error('Hubo un error al querer obtener una categoria: ', err);
-        return { statusCode: 500, mensaje: 'Hubo un error al querer obtener una categoria' };
+        console.error('Hubo un error al querer obtener las categorias: ', err.message);
+        logger.error('Hubo un error al querer obtener las categorias: ', err.message);
+        return { statusCode: 500, mensaje: 'Hubo un error al querer obtener las categorias' };
     }
 }
 
@@ -106,8 +106,8 @@ export const getCategoriasPorIdProvider = async(id) => {
             }
         }
     } catch (error) {
-        console.error('Hubo un error al querer obtener una categoria: ', error);
-        logger.error('Hubo un error al querer obtener una categoria: ', error);
+        console.error('Hubo un error al querer obtener una categoria: ', error.message);
+        logger.error('Hubo un error al querer obtener una categoria: ', error.message);
         return { statusCode: 500, mensaje: 'Hubo un error al querer obtener una categoria' };
     }
 }
@@ -126,8 +126,8 @@ export const newCategoriaProvider = async(nombre, userId) => {
             return { statusCode: 400, mensaje: 'No se pudo crear la categoría' };
         }
     } catch (error) {
-        console.error('Hubo un error al querer crear una categoria: ', error);
-        logger.error('Hubo un error al querer crear una categoria: ', error);
+        console.error('Hubo un error al querer crear una categoria: ', error.message);
+        logger.error('Hubo un error al querer crear una categoria: ', error.message);
         return { statusCode: 500, mensaje: 'Hubo un error al querer crear una categoria' };
     }
 }
@@ -146,8 +146,8 @@ export const updateCategoriaProvider = async(id, nombre, userId) => {
             return { statusCode: 400, mensaje: 'No se pudo actualizar la categoría' };
         }
     } catch (error) {
-        console.error('Hubo un error al querer actualizar una categoria: ', error);
-        logger.error('Hubo un error al querer actualizar una categoria: ', error);
+        console.error('Hubo un error al querer actualizar una categoria: ', error.message);
+        logger.error('Hubo un error al querer actualizar una categoria: ', error.message);
         return { statusCode: 500, mensaje: 'Hubo un error al querer actualizar una categoria' };
     }
 }
@@ -163,8 +163,8 @@ export const deleteCategoriaProvider = async(id) => {
             return { statusCode: 400, mensaje: 'No se pudo eliminar la categoría' };
         }
     } catch (error) {
-        console.error('Hubo un error al querer eliminar una categoria: ', error);
-        logger.error('Hubo un error al querer eliminar una categoria: ', error);
+        console.error('Hubo un error al querer eliminar una categoria: ', error.message);
+        logger.error('Hubo un error al querer eliminar una categoria: ', error.message);
         return { statusCode: 500, mensaje: 'Hubo un error al querer eliminar una categoria' };
     }
 }
@@ -180,8 +180,8 @@ export const restoreCategoriaProvider = async(id) => {
             return { statusCode: 400, mensaje: 'No se pudo restaurar la categoría' };
         }
     } catch (error) {
-        console.error('Hubo un error al querer restaurar una categoria: ', error);
-        logger.error('Hubo un error al querer restaurar una categoria: ', error);
+        console.error('Hubo un error al querer restaurar una categoria: ', error.message);
+        logger.error('Hubo un error al querer restaurar una categoria: ', error.message);
         return { statusCode: 500, mensaje: 'Hubo un error al querer restaurar una categoria' };
     }
 }

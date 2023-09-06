@@ -1,3 +1,5 @@
+import { generateToken } from '../helpers/generateTokens.helpers.js';
+import bcrypt from "bcryptjs";
 import { forgotPasswordUserProvider, loginUserProvider, newPasswordUserProvider, reactiveUserProvider, recoveryPasswordUserProvider, refreshTokenUserProvider, registerUserProvider, verifyNewUserProvider, verifyUserProvider } from '../providers/auth.providers.js';
 
 export const registerUserService = async(body) => {

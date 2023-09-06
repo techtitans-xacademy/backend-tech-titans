@@ -20,6 +20,8 @@ const blacklist = [
     'rhyta.com',
     'superrito.com',
     'teleworm.us',
+    'holis.com',
+    'example.com',
 ];
 
 export default blacklist;

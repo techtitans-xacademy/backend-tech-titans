@@ -103,6 +103,7 @@ Así se encuentra organizado el proyecto en cuestión.
 │   │   ├───📄 auth.controllers.js
 │   │   ├───📄 categoria.controllers.js
 │   │   ├───📄 curso.controllers.js
+│   │   ├───📄 docente.controllers.js
 │   │   └───📄 rol.controllers.js
 │   ├───📁 database/
 │   |   ├───📁 migrations/
@@ -144,25 +145,30 @@ Así se encuentra organizado el proyecto en cuestión.
 │   │   ├───📄 auth.providers.js
 │   │   ├───📄 categoria.providers.js
 │   │   ├───📄 curso.providers.js
+│   │   ├───📄 docente.providers.js
 │   │   └───📄 rol.providers.js
 │   ├───📁 routes/
 │   │   ├───📄 auth.routes.js
 │   │   ├───📄 categoria.routes.js
+│   │   ├───📄 docentes.routes.js
 │   │   └───📄 index.routes.js
 │   ├───📁 services/
 │   │   ├───📄 auth.services.js
 │   │   ├───📄 categoria.services.js
 │   │   ├───📄 curso.services.js
+│   │   ├───📄 categoria.services.js
 │   │   └───📄 rol.services.js
 │   ├───📁 themes/
 │   │   └───📄.gitkeep
 │   ├───📁 utils/
 │   │   ├───📄 blacklist-email.js
+│   │   ├───📄 createSlug.js
 │   │   ├───📄 validateEnv.js
 │   │   └───📄 winston.logger.js
 │   └───📁 validations/
 │       ├───📄 auth.validations.js
-│       └───📄 categoria.validations.js
+│       ├───📄 categoria.validations.js
+│       └───📄 docente.validations.js
 ├───📄 .env.example
 ├───📄 package-lock.json
 ├───📄 package.json
