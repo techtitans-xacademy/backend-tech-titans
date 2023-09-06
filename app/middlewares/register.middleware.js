@@ -35,7 +35,7 @@ export function checkDuplicateEmail(req, res, next) {
     }).then(user => {
         if (user) {
             res.status(400).send({
-                message: "Upps... ¡El correo electrónico ya está en uso!"
+                mensaje: "Upps... ¡El correo electrónico ya está en uso!"
             });
             logger.error(`Upps... El correo electrónico (${user.email}) ya está en uso`)
             return;
@@ -65,7 +65,7 @@ export async function checkRolesExisted(req, res, next) {
 
         if (rolesNotFound.length > 0) {
             return res.status(400).send({
-                message: "Upps...! Los roles no existen: " + rolesNotFound.join(", "),
+                mensaje: "Upps...! Los roles no existen: " + rolesNotFound.join(", "),
             });
         }
 
@@ -75,7 +75,7 @@ export async function checkRolesExisted(req, res, next) {
     } catch (error) {
         logger.error('No se pudieron verificar los roles: ', error);
         res.status(500).send({
-            message: "No se pudieron verificar los roles",
+            mensaje: "No se pudieron verificar los roles",
         });
     }
 }

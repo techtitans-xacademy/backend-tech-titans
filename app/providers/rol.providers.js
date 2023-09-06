@@ -1,15 +1,22 @@
 import Rol from "../models/rol.model.js";
 import Usuario from "../models/usuario.model.js";
+import { logger } from "../utils/winston.logger.js";
 
 export const getRolesProvider = async() => {
     try {
-        return await Rol.findAll({
+        const roles = await Rol.findAll({
             order: [
                 ["nombre", "ASC"]
             ]
         });
+        return {
+            statusCode: 200,
+            data: roles
+        }
     } catch (error) {
-        return error.message;
+        console.error('No se pudieron obtener roles:', error.message);
+        logger.error('No se pudieron obtener roles:', error.message);
+        return { statusCode: 500, mensaje: 'No se pudieron obtener roles' };
     }
 }
 
@@ -56,7 +63,8 @@ export const gestionarRolesDeUsuarioProvider = async(id, roles, userId) => {
         }
 
     } catch (error) {
-        console.error('No se pudieron actualizar los roles de usuario:', error);
-        return { statusCode: 500, mensaje: 'No se pudieron actualizar los roles de usuario' };
+        console.error('No se pudieron agregar o quitar roles:', error.message);
+        logger.error('No se pudieron agregar o quitar roles:', error.message);
+        return { statusCode: 500, mensaje: 'No se pudieron agregar o quitar roles' };
     }
 }

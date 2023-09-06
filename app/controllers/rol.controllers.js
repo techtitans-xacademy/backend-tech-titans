@@ -6,7 +6,7 @@ export const getRoles = async(req, res) => {
         const { statusCode, ...responseData } = rolService;
         res.status(statusCode).json(responseData);
     } catch (err) {
-        res.status(500).json(err.message);
+        res.status(500).json({ mensaje: err.message });
     }
 }
 
@@ -16,6 +16,6 @@ export const addorquiteRoles = async(req, res) => {
         const { statusCode, ...responseData } = rolService;
         res.status(statusCode).json(responseData);
     } catch (err) {
-        res.status(500).json(err.message);
+        res.status(500).json({ mensaje: err.message });
     }
 }

@@ -5,18 +5,18 @@ export const registerUser = async(req, res) => {
         const userService = await registerUserService(req.body);
         const { statusCode, ...responseData } = userService;
         res.status(statusCode).json(responseData);
-    } catch (err) {
-        res.status(500).json(err.message);
+    } catch (error) {
+        res.status(500).json({ mensaje: error.message });
     }
 }
 
 export async function verifyUser(req, res) {
     try {
-        const userService = await verifyUserService(req.params['token']);
+        const userService = await verifyUserService(req.params);
         const { statusCode, ...responseData } = userService;
         res.status(statusCode).json(responseData);
     } catch (error) {
-        res.status(500).json(error.message)
+        res.status(500).json({ mensaje: error.message });
     }
 }
 
@@ -26,7 +26,7 @@ export async function loginUser(req, res) {
         const { statusCode, ...rsp } = userService;
         res.status(statusCode).json(rsp);
     } catch (error) {
-        res.status(500).json(error.message)
+        res.status(500).json({ mensaje: error.message });
     }
 }
 
@@ -36,7 +36,7 @@ export async function forgotPasswordUser(req, res) {
         const { statusCode, ...rsp } = userService;
         res.status(statusCode).json(rsp);
     } catch (error) {
-        res.status(500).json(error.message)
+        res.status(500).json({ mensaje: error.message });
     }
 }
 
@@ -46,7 +46,7 @@ export async function recoveryPasswordUser(req, res) {
         const { statusCode, ...rsp } = userService;
         res.status(statusCode).json(rsp);
     } catch (error) {
-        res.status(500).json(error.message)
+        res.status(500).json({ mensaje: error.message });
     }
 }
 
@@ -56,7 +56,7 @@ export async function refreshTokenUser(req, res) {
         const { statusCode, ...rsp } = userService;
         res.status(statusCode).json(rsp);
     } catch (error) {
-        res.status(500).json(error.message)
+        res.status(500).json({ mensaje: error.message });
     }
 }
 
@@ -66,7 +66,7 @@ export async function reactiveUser(req, res) {
         const { statusCode, ...rsp } = userService;
         res.status(statusCode).json(rsp);
     } catch (error) {
-        res.status(500).json(error.message)
+        res.status(500).json({ mensaje: error.message });
     }
 }
 
@@ -76,7 +76,7 @@ export async function verifyNewUser(req, res) {
         const { statusCode, ...rsp } = userService;
         res.status(statusCode).json(rsp);
     } catch (error) {
-        res.status(500).json(error.message)
+        res.status(500).json({ mensaje: error.message });
     }
 }
 
@@ -86,6 +86,6 @@ export async function newPasswordUser(req, res) {
         const { statusCode, ...rsp } = userService;
         res.status(statusCode).json(rsp);
     } catch (error) {
-        res.status(500).json(error.message)
+        res.status(500).json({ mensaje: error.message });
     }
 }

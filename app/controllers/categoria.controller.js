@@ -6,7 +6,7 @@ export async function getCategorias(req, res) {
         const { statusCode, ...bodyData } = data;
         res.status(statusCode).json(bodyData);
     } catch (error) {
-        res.status(500).json({ message: error.message });
+        res.status(500).json({ mensaje: error.message });
     }
 }
 
@@ -16,7 +16,7 @@ export async function getCategoriasPorID(req, res) {
         const { statusCode, ...bodyData } = data;
         res.status(statusCode).json(bodyData);
     } catch (error) {
-        res.status(500).json({ message: error.message });
+        res.status(500).json({ mensaje: error.message });
     }
 }
 
@@ -26,7 +26,7 @@ export async function newCategoria(req, res) {
         const { statusCode, ...bodyData } = data;
         res.status(statusCode).json(bodyData);
     } catch (error) {
-        res.status(500).json({ message: error.message });
+        res.status(500).json({ mensaje: error.message });
     }
 }
 
@@ -36,7 +36,7 @@ export async function updateCategoria(req, res) {
         const { statusCode, ...bodyData } = data;
         res.status(statusCode).json(bodyData);
     } catch (error) {
-        res.status(500).json({ message: error.message });
+        res.status(500).json({ mensaje: error.message });
     }
 }
 
@@ -46,7 +46,7 @@ export async function deleteCategoria(req, res) {
         const { statusCode, ...bodyData } = data;
         res.status(statusCode).json(bodyData);
     } catch (error) {
-        res.status(500).json({ message: error.message });
+        res.status(500).json({ mensaje: error.message });
     }
 }
 
@@ -56,6 +56,6 @@ export async function restoreCategoria(req, res) {
         const { statusCode, ...bodyData } = data;
         res.status(statusCode).json(bodyData);
     } catch (error) {
-        res.status(500).json({ message: error.message });
+        res.status(500).json({ mensaje: error.message });
     }
 }
