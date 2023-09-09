@@ -40,7 +40,7 @@ export const registerUserProvider = async(usuario, rolesServ) => {
 
             let bodyMail = {
                 name: `${usuario.nombre} ${usuario.apellido}`,
-                link: `${front}/auth/verificar/${usuario.token}`
+                link: `${front}/verificar/${usuario.token}`
             };
 
             sendMail(usuario.email, `${usuario.nombre}, por favor verifique su dirección de correo electrónico`, 'confirm', bodyMail);
@@ -83,7 +83,7 @@ export const verifyUserProvider = async(token) => {
                     }
                 } else {
                     let token_user = generateToken(60);
-                    let link = `${front}/auth/verificar/${token_user}`;
+                    let link = `${front}/verificar/${token_user}`;
                     let bodyMail = {
                         name: user.nombre,
                         link: link
@@ -127,7 +127,7 @@ export const verifyNewUserProvider = async(token) => {
                 if (fechaActual <= user.caducidad_token) {
                     user.email_verified_at = new Date();
                     let token = generateToken(60);
-                    let link = `${front}/auth/nueva-clave/${token}`;
+                    let link = `${front}/nueva-clave/${token}`;
                     let bodyMail = {
                         name: `${user.nombre} ${user.apellido}`,
                         link: link,
@@ -215,8 +215,8 @@ export const loginUserProvider = async(email, password) => {
 
         let token = Jwt.sign({
                 id: user.id,
-                nombre: `${user.nombre}`,
-                apellido: `${user.apellido}`,
+                nombre: user.nombre,
+                apellido: user.apellido,
                 email: user.email,
                 roles: authorities
             },
@@ -255,7 +255,7 @@ export const forgotPasswordUserProvider = async(email) => {
             return { statusCode: 400, mensaje: 'El token ingresado no es válido o no pertenece a ningún usuario.' };
         } else {
             let token = generateToken(60);
-            let link = `${front}/auth/recuperar-clave/${token}`;
+            let link = `${front}/recuperar-clave/${token}`;
             let bodyMail = {
                 name: user.nombre,
                 username: user.email,
@@ -297,7 +297,7 @@ export const recoveryPasswordUserProvider = async(token, password) => {
                         let bodyMail = {
                             name: `${user.nombre} ${user.apellido}`,
                             username: user.email,
-                            link: `${front}/auth/iniciarsesion`,
+                            link: `${front}/iniciar-sesion`,
                             year: new Date().getFullYear()
                         }
                         if (process.env.NODE_ENV !== 'test') {
@@ -310,7 +310,7 @@ export const recoveryPasswordUserProvider = async(token, password) => {
                     }
                 } else {
                     let token = generateToken(60);
-                    let link = `${front}/auth/recuperar-clave/${token}`;
+                    let link = `${front}/recuperar-clave/${token}`;
                     let body = {
                         name: user.nombre,
                         username: user.email,
@@ -380,7 +380,7 @@ export const reactiveUserProvider = async(email) => {
         if (user.email_verified_at !== null) return { statusCode: 200, mensaje: 'Ya has verificado tu cuenta' }
 
         let token_user = generateToken(60);
-        let link = `${front}/auth/verificar/${token_user}`;
+        let link = `${front}/verificar/${token_user}`;
         let fullName = `${user.nombre} ${user.apellido}`;
         let bodyMail = {
             name: fullName,
@@ -427,7 +427,7 @@ export const newPasswordUserProvider = async(token, password) => {
                     }
                 } else {
                     let token = generateToken(60);
-                    let link = `${front}/auth/nueva-clave/${token}`;
+                    let link = `${front}/nueva-clave/${token}`;
                     let bodyMail = {
                         name: user.nombre,
                         username: user.email,
@@ -460,7 +460,7 @@ export const newPasswordUserProvider = async(token, password) => {
 }
 
 const account_data = (user, subject) => {
-    let link = `${front}/auth/iniciarsesion`;
+    let link = `${front}/iniciar-sesion`;
     let bodyMail = {
         name: user.nombre,
         lastname: user.apellido,
