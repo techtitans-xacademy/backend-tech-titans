@@ -228,13 +228,6 @@ export const loginUserProvider = async(email, password) => {
         return {
             statusCode: 200,
             mensaje: 'Has iniciado sesion con éxito',
-            // user: {
-            //     id: user.id,
-            //     nombre: user.nombre,
-            //     apellido: user.apellido,
-            //     email: user.email,
-            //     roles: authorities,
-            // },
             accessToken: token
         };
     } catch (err) {
