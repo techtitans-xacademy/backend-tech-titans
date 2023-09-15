@@ -47,6 +47,8 @@ export const deleteImageStorage = (folder, name) => {
                     console.log("No hay imagen para borrar");
                     logger.error('No hay imagen para borrar')
                 }
+                logger.info(`Se borro la imagen ${name} de la carpeta ${folder}`);
+                console.log(`Se borro la imagen ${name} de la carpeta ${folder}`);
             });
         }
     });
