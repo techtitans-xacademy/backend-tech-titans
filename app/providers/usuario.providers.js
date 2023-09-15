@@ -130,7 +130,8 @@ export const getUsuariosByRoleDocenteProvider = async() => {
               FROM usuarios_roles ur2
               INNER JOIN roles r2 ON ur2.rolId = r2.id
               WHERE ur2.usuarioId = u.id AND r2.nombre IN ('admin', 'estudiante')
-            );
+            )
+            AND u.deletedAt IS NULL;
             `, {
                 type: QueryTypes.SELECT,
             }
