@@ -7,6 +7,10 @@ import path from "path";
 import Usuario from "../models/usuario.model.js";
 import Categoria from "../models/categoria.model.js";
 import { Op } from "sequelize";
+import { config } from "dotenv";
+config();
+
+const upload_preset = process.env.UPLOAD_PRESET || ""
 
 export const getCursosProvider = async(limit, page, borrado) => {
     try {
@@ -288,9 +292,9 @@ export const newCursoProvider = async(cursoData, imageFile) => {
             }
 
             const uploadImg = await cloudinary.uploader.upload(img_path, {
-                upload_preset: "santex",
+                upload_preset,
                 resource_type: "auto",
-                folder: "santex/curso",
+                folder: `${upload_preset}/curso`,
                 public_id: `${filename}`,
             });
 
@@ -360,9 +364,9 @@ export const updateCursoProvider = async(id, cursoData, imageFile) => {
             }
 
             const uploadImg = await cloudinary.uploader.upload(img_path, {
-                upload_preset: "santex",
+                upload_preset,
                 resource_type: "auto",
-                folder: "santex/curso",
+                folder: `${upload_preset}/curso`,
                 public_id: `${filename}`,
             });
 
