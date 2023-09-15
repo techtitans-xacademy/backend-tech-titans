@@ -117,7 +117,6 @@ export const getUsuarioByIdProvider = async(id) => {
 
 export const getUsuariosByRoleDocenteProvider = async() => {
     try {
-        // Busca el rol "docente" por su nombre (cambia 'docente' al nombre real si es diferente)
         const rol = await Rol.findOne({ where: { nombre: 'docente' } });
 
         if (!rol) {
@@ -128,7 +127,6 @@ export const getUsuariosByRoleDocenteProvider = async() => {
             }
         }
 
-        // Usar el ID del rol para encontrar los usuarios asociados
         const usuarios = await Usuario.findAll({
             attributes: {
                 exclude: ["deletedAt", "createdAt", "updatedAt", "password", 'caducidad_token', 'token', 'email_verified_at', 'status', 'avatar', 'public_id', 'email'],
@@ -136,7 +134,7 @@ export const getUsuariosByRoleDocenteProvider = async() => {
             include: [{
                 model: Rol,
                 where: { id: rol.id },
-                through: { attributes: [] }, // Para excluir la tabla intermedia
+                through: { attributes: [] },
                 attributes: {
                     exclude: ["deletedAt", "createdAt", "updatedAt", 'id'],
                 },
