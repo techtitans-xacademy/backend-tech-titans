@@ -284,7 +284,7 @@ export const newCursoProvider = async(cursoData, imageFile) => {
                 logger.error(
                     `Archivos no soportados por el servidor. Estás enviando un archivo con esta extensión: ${ext}`
                 );
-                deleteImageStorage("curso", portada_name);
+                deleteImageStorage('cursos', portada_name);
                 return {
                     statusCode: 400,
                     message: `Archivos no soportados por el servidor. Los archivos deben estar en el formato: BMP, GIF, JPG, JPEG, PNG, SVG, WEBP, AVIF. Estás enviando un archivo con esta extensión: ${ext.toUpperCase()}`,
@@ -294,11 +294,11 @@ export const newCursoProvider = async(cursoData, imageFile) => {
             const uploadImg = await cloudinary.uploader.upload(img_path, {
                 upload_preset,
                 resource_type: "auto",
-                folder: `${upload_preset}/curso`,
+                folder: `${upload_preset}/cursos`,
                 public_id: `${filename}`,
             });
 
-            deleteImageStorage("curso", portada_name);
+            deleteImageStorage('cursos', portada_name);
 
             cursoData.portada = uploadImg.secure_url;
             cursoData.public_id = uploadImg.public_id;
@@ -337,9 +337,7 @@ export const updateCursoProvider = async(id, cursoData, imageFile) => {
             const img_path = imageFile.path;
             const name_img = path.normalize(img_path).split(path.sep);
             let portada_name = name_img[2];
-            let filename = `${~~(Math.random() * 9999)}-${createSlug(
-        cursoData.nombre
-      )}`;
+            let filename = `${~~(Math.random() * 9999)}-${createSlug(cursoData.nombre)}`;
             let splitName = name_img[2].split(".");
             let ext = splitName[1];
 
@@ -356,7 +354,7 @@ export const updateCursoProvider = async(id, cursoData, imageFile) => {
                 logger.error(
                     `Archivos no soportados por el servidor. Estás enviando un archivo con esta extensión: ${ext}`
                 );
-                deleteImageStorage("curso", portada_name);
+                deleteImageStorage('cursos', portada_name);
                 return {
                     statusCode: 400,
                     message: `Archivos no soportados por el servidor. Los archivos deben estar en el formato: BMP, GIF, JPG, JPEG, PNG, SVG, WEBP, AVIF. Estás enviando un archivo con esta extensión: ${ext.toUpperCase()}`,
@@ -366,11 +364,11 @@ export const updateCursoProvider = async(id, cursoData, imageFile) => {
             const uploadImg = await cloudinary.uploader.upload(img_path, {
                 upload_preset,
                 resource_type: "auto",
-                folder: `${upload_preset}/curso`,
+                folder: `${upload_preset}/cursos`,
                 public_id: `${filename}`,
             });
 
-            deleteImageStorage("curso", portada_name);
+            deleteImageStorage('cursos', portada_name);
 
             cursoData.portada = uploadImg.secure_url;
             cursoData.public_id = uploadImg.public_id;
@@ -408,8 +406,8 @@ export const updateCursoProvider = async(id, cursoData, imageFile) => {
 
 export const deleteCursoProvider = async(id) => {
     try {
-        const curso = await Curso.destroy({ where: { id } });
-        if (curso) {
+        const response = await Curso.destroy({ where: { id } });
+        if (response) {
             logger.info(`¡Curso eliminado exitosamente!`);
             return { statusCode: 200, mensaje: "¡Curso eliminado exitosamente!" };
         } else {

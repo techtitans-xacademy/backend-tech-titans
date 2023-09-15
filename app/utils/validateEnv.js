@@ -25,6 +25,7 @@ const validate = cleanEnv(process.env, {
     CLOUDINARY_API_KEY: str(),
     CLOUDINARY_API_SECRET: str(),
     CLOUDINARY_NAME: str(),
+    UPLOAD_PRESET: str(),
     PAGE_SIZE: num()
 });
 

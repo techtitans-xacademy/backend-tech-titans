@@ -40,6 +40,7 @@ export function isLogged(req, res, next) {
 
 function isVerifiedOrActived(req, res, next) {
     Usuario.findByPk(req.userId).then(user => {
+        if (!user) return res.status(404).send({ mensaje: 'No se encontró ningún usuario' });
         if (user.email_verified_at === null) {
             return res.status(401).send({
                 mensaje: "No has verificado tu cuenta. Por favor verifique su cuenta, verifique si tiene el correo electrónico en su casilla"

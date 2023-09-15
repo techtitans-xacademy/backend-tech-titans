@@ -4,8 +4,8 @@ import multiparty from 'connect-multiparty';
 import { checkFolderCreate } from "../helpers/image.helpers.js";
 import { deleteCurso, getCursoByIdOrSlug, getCursos, getCursosByUserLogged, newCurso, restoreCurso, updateCurso } from "../controllers/curso.controllers.js";
 import { curso_validate } from "../validations/curso.validations.js";
-checkFolderCreate('curso');
-const path = multiparty({ uploadDir: './uploads/curso', limit: '50mb' });
+checkFolderCreate('cursos');
+const path = multiparty({ uploadDir: './uploads/cursos', limit: '50mb' });
 
 const router = Router();
 

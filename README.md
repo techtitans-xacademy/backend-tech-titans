@@ -16,7 +16,7 @@ Para ejecutar este proyecto, deberá agregar las siguientes variables de entorno
 
 `API_PORT`
 
-`SECRET_KEY`
+`JWT_SECRET`
 
 `NODE_ENV`
 
@@ -37,6 +37,24 @@ Para ejecutar este proyecto, deberá agregar las siguientes variables de entorno
 `API_HOST`
 
 `HOST_FRONT`
+
+`HOST_FRONT_EMAIL`
+
+`UPLOAD_PRESET`
+
+`CLOUDINARY_API_KEY`
+
+`CLOUDINARY_API_SECRET`
+
+`CLOUDINARY_NAME`
+
+`APP`
+
+`NAME_MAIL`
+
+`USER_MAIL`
+
+`PASS_MAIL`
 
 ### Pre-requisitos 📋
 
@@ -104,7 +122,8 @@ Así se encuentra organizado el proyecto en cuestión.
 │   │   ├───📄 categoria.controllers.js
 │   │   ├───📄 curso.controllers.js
 │   │   ├───📄 docente.controllers.js
-│   │   └───📄 rol.controllers.js
+│   │   ├───📄 rol.controllers.js
+│   │   └───📄 usuario.controllers.js
 │   ├───📁 database/
 │   |   ├───📁 migrations/
 │   │   |    └───📄.gitkeep
@@ -146,18 +165,22 @@ Así se encuentra organizado el proyecto en cuestión.
 │   │   ├───📄 categoria.providers.js
 │   │   ├───📄 curso.providers.js
 │   │   ├───📄 docente.providers.js
-│   │   └───📄 rol.providers.js
+│   │   ├───📄 rol.providers.js
+│   │   └───📄 usuario.providers.js
 │   ├───📁 routes/
 │   │   ├───📄 auth.routes.js
 │   │   ├───📄 categoria.routes.js
+│   │   ├───📄 curso.routes.js
 │   │   ├───📄 docentes.routes.js
-│   │   └───📄 index.routes.js
+│   │   ├───📄 index.routes.js
+│   │   └───📄 usuario.routes.js
 │   ├───📁 services/
 │   │   ├───📄 auth.services.js
 │   │   ├───📄 categoria.services.js
 │   │   ├───📄 curso.services.js
 │   │   ├───📄 categoria.services.js
-│   │   └───📄 rol.services.js
+│   │   ├───📄 rol.services.js
+│   │   └───📄 usuario.services.js
 │   ├───📁 themes/
 │   │   └───📄.gitkeep
 │   ├───📁 utils/
@@ -168,7 +191,9 @@ Así se encuentra organizado el proyecto en cuestión.
 │   └───📁 validations/
 │       ├───📄 auth.validations.js
 │       ├───📄 categoria.validations.js
-│       └───📄 docente.validations.js
+│       ├───📄 curso.validations.js
+│       ├───📄 docente.validations.js
+│       └───📄 usuario.validations.js
 ├───📄 .env.example
 ├───📄 package-lock.json
 ├───📄 package.json
