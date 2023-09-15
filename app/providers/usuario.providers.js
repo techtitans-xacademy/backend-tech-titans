@@ -4,10 +4,11 @@ import path from "path";
 import { logger } from "../utils/winston.logger.js";
 import cloudinary from "../config/cloudinary.config.js";
 import { deleteImageStorage } from "../helpers/image.helpers.js";
-import { Op } from "sequelize";
+import { Op, QueryTypes } from "sequelize";
 import createSlug from "../utils/createSlug.js";
 import Rol from "../models/rol.model.js";
 import { sendMail } from "../mails/config.mails.js";
+import sequelize from "../config/database.config.js";
 config();
 
 const front = process.env.HOST_FRONT_EMAIL;
@@ -117,32 +118,23 @@ export const getUsuarioByIdProvider = async(id) => {
 
 export const getUsuariosByRoleDocenteProvider = async() => {
     try {
-        const rol = await Rol.findOne({ where: { nombre: 'docente' } });
-
-        if (!rol) {
-            console.log('No se encontró el rol docente.');
-            return {
-                statusCode: 404,
-                mensaje: 'No se encontró el rol docente'
+        const usuariosConDocenteRol = await sequelize.query(
+            `
+            SELECT u.id, u.nombre, u.apellido
+            FROM usuarios u
+            INNER JOIN usuarios_roles ur ON u.id = ur.usuarioId
+            INNER JOIN roles r ON ur.rolId = r.id
+            WHERE r.nombre = 'docente'
+            AND NOT EXISTS (
+              SELECT *
+              FROM usuarios_roles ur2
+              INNER JOIN roles r2 ON ur2.rolId = r2.id
+              WHERE ur2.usuarioId = u.id AND r2.nombre IN ('admin', 'estudiante')
+            );
+            `, {
+                type: QueryTypes.SELECT,
             }
-        }
-
-        const usuarios = await rol.getUsuarios({
-            attributes: ['id'],
-        });
-
-        const usuarioIds = usuarios.map((usuario) => usuario.id);
-
-        const usuariosConDocenteRol = await Usuario.findAll({
-            where: {
-                id: {
-                    [Op.in]: usuarioIds,
-                },
-            },
-            attributes: ['id', 'nombre', 'apellido']
-        });
-
-
+        );
         if (usuariosConDocenteRol) {
             return {
                 statusCode: 200,
