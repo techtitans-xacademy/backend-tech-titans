@@ -120,31 +120,33 @@ export const getUsuariosByRoleDocenteProvider = async() => {
         const rol = await Rol.findOne({ where: { nombre: 'docente' } });
 
         if (!rol) {
-            console.log('No se encontró el rol "docente".');
+            console.log('No se encontró el rol docente.');
             return {
                 statusCode: 404,
-                mensaje: 'No se encontró el rol "docente"'
+                mensaje: 'No se encontró el rol docente'
             }
         }
 
-        const usuarios = await Usuario.findAll({
-            attributes: {
-                exclude: ["deletedAt", "createdAt", "updatedAt", "password", 'caducidad_token', 'token', 'email_verified_at', 'status', 'avatar', 'public_id', 'email'],
-            },
-            include: [{
-                model: Rol,
-                where: { id: rol.id },
-                through: { attributes: [] },
-                attributes: {
-                    exclude: ["deletedAt", "createdAt", "updatedAt", 'id'],
-                },
-            }],
+        const usuarios = await rol.getUsuarios({
+            attributes: ['id'],
         });
 
-        if (usuarios) {
+        const usuarioIds = usuarios.map((usuario) => usuario.id);
+
+        const usuariosConDocenteRol = await Usuario.findAll({
+            where: {
+                id: {
+                    [Op.in]: usuarioIds,
+                },
+            },
+            attributes: ['id', 'nombre', 'apellido']
+        });
+
+
+        if (usuariosConDocenteRol) {
             return {
                 statusCode: 200,
-                data: usuarios
+                data: usuariosConDocenteRol
             }
         } else {
             return {
@@ -153,10 +155,10 @@ export const getUsuariosByRoleDocenteProvider = async() => {
             }
         }
     } catch (error) {
-        console.error('Error al buscar usuarios con el rol "docente":', error);
+        console.error('Error al buscar usuarios con el rol docente:', error);
         return {
             statusCode: 500,
-            mensaje: 'Error al buscar usuarios con el rol "docente"'
+            mensaje: 'Error al buscar usuarios con el rol docente'
         }
     }
 }
