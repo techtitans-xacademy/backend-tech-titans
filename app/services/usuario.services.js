@@ -1,5 +1,8 @@
 import { config } from "dotenv";
-import { changeEstadoUsuarioProvider, deleteUsuarioProvider, getUsuarioByIdProvider, getUsuariosProvider, restoreUsuarioProvider, updateUsuarioProvider } from "../providers/usuario.providers.js";
+import { changeEstadoUsuarioProvider, deleteUsuarioProvider, getUsuarioByIdProvider, getUsuariosByRoleDocenteProvider, getUsuariosProvider, newUsuarioProvider, restoreUsuarioProvider, updateUsuarioProvider } from "../providers/usuario.providers.js";
+import { generarContrasena } from "../helpers/generatePasswordFake.helpers.js";
+import { generateToken } from "../helpers/generateTokens.helpers.js";
+import bcrypt from "bcryptjs";
 config();
 
 export const getUsuariosService = async(query) => {
@@ -20,6 +23,28 @@ export const getUsuarioByIdService = async(params) => {
 
 export const getUsuarioLogueadoService = async(userID) => {
     return await getUsuarioByIdProvider(userID);
+}
+
+export const getUsuariosByRoleDocenteService = async() => {
+    return getUsuariosByRoleDocenteProvider();
+}
+
+export const newUsuarioService = async(body) => {
+    const { nombre, apellido, email, roles } = body;
+
+    let password = generarContrasena();
+
+    const usuario = {
+        nombre,
+        apellido,
+        email,
+        token: generateToken(60),
+        status: false,
+        caducidad_token: new Date().setDate(new Date().getDate() + 1),
+        password: bcrypt.hashSync(password, 8)
+    }
+
+    return await newUsuarioProvider(usuario, roles);
 }
 
 export const updateUsuarioService = async(params, body, files) => {

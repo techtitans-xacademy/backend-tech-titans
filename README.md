@@ -141,6 +141,7 @@ Así se encuentra organizado el proyecto en cuestión.
 │   |   ├───📁 pages/
 |   |   |   ├───📄 account_data.html
 |   |   |   ├───📄 confirm.html
+|   |   |   ├───📄 confirm_na.html
 |   |   |   ├───📄 forgot.html
 |   |   |   ├───📄 new_password.html
 │   │   |   └───📄 password_ok.html

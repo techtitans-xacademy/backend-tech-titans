@@ -1,4 +1,4 @@
-import { changeEstadoUsuarioService, deleteUsuarioService, getUsuarioByIdService, getUsuarioLogueadoService, getUsuariosService, restoreUsuarioService, updateUsuarioService } from "../services/usuario.services.js";
+import { changeEstadoUsuarioService, deleteUsuarioService, getUsuarioByIdService, getUsuarioLogueadoService, getUsuariosByRoleDocenteService, getUsuariosService, newUsuarioService, restoreUsuarioService, updateUsuarioService } from "../services/usuario.services.js";
 
 export const getUsuarios = async(req, res) => {
     try {
@@ -30,6 +30,28 @@ export const getUsuarioLogueado = async(req, res) => {
     } catch (error) {
         console.log(error.message);
         res.status(500).json({ mensaje: 'Error al obtener el usuario logueado' });
+    }
+}
+
+export const getUsuariosByRoleDocente = async(req, res) => {
+    try {
+        const usuariosService = await getUsuariosByRoleDocenteService();
+        const { statusCode, ...responseData } = usuariosService;
+        res.status(statusCode).json(responseData);
+    } catch (error) {
+        console.log(error.message);
+        res.status(500).json({ mensaje: 'Error al obtener el usuario logueado' });
+    }
+}
+
+export const newUsuario = async(req, res) => {
+    try {
+        const usuariosService = await newUsuarioService(req.body);
+        const { statusCode, ...responseData } = usuariosService;
+        res.status(statusCode).json(responseData);
+    } catch (error) {
+        console.log(error.message);
+        res.status(500).json({ mensaje: 'Error al crear el usuario' });
     }
 }
 

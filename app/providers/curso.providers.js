@@ -302,6 +302,9 @@ export const newCursoProvider = async(cursoData, imageFile) => {
 
             cursoData.portada = uploadImg.secure_url;
             cursoData.public_id = uploadImg.public_id;
+        } else {
+            cursoData.portada = 'https://res.cloudinary.com/fabrizio-dev/image/upload/v1694810742/santex/cursos/no-image.jpg';
+            cursoData.public_id = null;
         }
 
         cursoData.slug = createSlug(cursoData.nombre);

@@ -12,7 +12,7 @@ const router = Router();
 router.get('/cursos', getCursos);
 router.get('/cursos/all', isLogged, getCursosByUserLogged);
 router.get('/curso/:params', getCursoByIdOrSlug);
-router.post('/curso/nuevo', [path, isLogged, isAdmin, curso_validate], newCurso)
+router.post('/curso/nuevo', [path, isLogged, isDocenteOrAdmin, curso_validate], newCurso)
 router.put('/curso/:id/editar', [path, isLogged, isAdmin, curso_validate], updateCurso)
 router.delete('/curso/:id/borrar', [isLogged, isAdmin], deleteCurso)
 router.post('/curso/:id/restaurar', [isLogged, isAdmin], restoreCurso)

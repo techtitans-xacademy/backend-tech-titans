@@ -17,6 +17,8 @@ const Op = sequelize.Sequelize.Op;
 
 export const registerUserProvider = async(usuario, rolesServ) => {
     try {
+        usuario.avatar = 'https://res.cloudinary.com/fabrizio-dev/image/upload/v1694810559/santex/usuarios/default-user.webp';
+        usuario.public_id = null;
         const user = await Usuario.create(usuario);
         let userRoles = [];
 
@@ -137,7 +139,7 @@ export const verifyNewUserProvider = async(token) => {
 
                     user.token = token;
                     user.caducidad_token = horaActual.setMinutes(horaActual.getMinutes() + 60);
-                    user.status = true;
+                    user.status = false;
 
 
                     let userUpdate = await user.save();

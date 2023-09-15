@@ -6,8 +6,11 @@ import cloudinary from "../config/cloudinary.config.js";
 import { deleteImageStorage } from "../helpers/image.helpers.js";
 import { Op } from "sequelize";
 import createSlug from "../utils/createSlug.js";
+import Rol from "../models/rol.model.js";
+import { sendMail } from "../mails/config.mails.js";
 config();
 
+const front = process.env.HOST_FRONT_EMAIL;
 const upload_preset = process.env.UPLOAD_PRESET || ""
 
 export const getUsuariosProvider = async(limit, page, borrado) => {
@@ -109,6 +112,98 @@ export const getUsuarioByIdProvider = async(id) => {
         console.error("No se pudieron obtener el usuario buscado:", error.message);
         logger.error("No se pudieron obtener el usuario buscado:", error.message);
         return { statusCode: 500, mensaje: "No se pudieron obtener el usuario buscado" };
+    }
+}
+
+export const getUsuariosByRoleDocenteProvider = async() => {
+    try {
+        // Busca el rol "docente" por su nombre (cambia 'docente' al nombre real si es diferente)
+        const rol = await Rol.findOne({ where: { nombre: 'docente' } });
+
+        if (!rol) {
+            console.log('No se encontró el rol "docente".');
+            return {
+                statusCode: 404,
+                mensaje: 'No se encontró el rol "docente"'
+            }
+        }
+
+        // Usar el ID del rol para encontrar los usuarios asociados
+        const usuarios = await Usuario.findAll({
+            attributes: {
+                exclude: ["deletedAt", "createdAt", "updatedAt", "password", 'caducidad_token', 'token', 'email_verified_at', 'status', 'avatar', 'public_id', 'email'],
+            },
+            include: [{
+                model: Rol,
+                where: { id: rol.id },
+                through: { attributes: [] }, // Para excluir la tabla intermedia
+                attributes: {
+                    exclude: ["deletedAt", "createdAt", "updatedAt", 'id'],
+                },
+            }],
+        });
+
+        if (usuarios) {
+            return {
+                statusCode: 200,
+                data: usuarios
+            }
+        } else {
+            return {
+                statusCode: 200,
+                data: []
+            }
+        }
+    } catch (error) {
+        console.error('Error al buscar usuarios con el rol "docente":', error);
+        return {
+            statusCode: 500,
+            mensaje: 'Error al buscar usuarios con el rol "docente"'
+        }
+    }
+}
+
+export const newUsuarioProvider = async(usuario, rolesServ) => {
+    try {
+        usuario.avatar = 'https://res.cloudinary.com/fabrizio-dev/image/upload/v1694810559/santex/usuarios/default-user.webp';
+        usuario.public_id = null;
+        const user = await Usuario.create(usuario);
+
+        let userRoles = [];
+
+        if (rolesServ) {
+            userRoles = await Rol.findAll({
+                where: {
+                    nombre: {
+                        [Op.or]: rolesServ
+                    }
+                }
+            });
+        } else {
+            // user role = 3 - estudiante
+            const rol = await Rol.findByPk(3);
+            userRoles.push(rol);
+        }
+
+        if (user) {
+            await user.setRols(userRoles);
+            logger.info(`Se ha creado un usuario con el email: ${usuario.email}.`);
+
+            let bodyMail = {
+                name: `${usuario.nombre} ${usuario.apellido}`,
+                link: `${front}/nueva-cuenta/verificar/${usuario.token}`
+            };
+
+            sendMail(usuario.email, `${usuario.nombre}, por favor verifique su dirección de correo electrónico para seguir con la configuracion de tu cuenta`, 'confirm_na', bodyMail);
+            return { statusCode: 201, mensaje: "¡Haz creado la cuenta al usuario con éxito. Se le envio al correo las intrucciones a seguir" };
+        } else {
+            logger.error(`No se ha podido crear el usuario.`);
+            return { statusCode: 400, mensaje: 'No se ha podido crear el usuario.' }
+        }
+    } catch (error) {
+        console.error('Hubo un error al querer crear un usuario: ', error.message);
+        logger.error('Hubo un error al querer crear un usuario: ', error.message);
+        return { statusCode: 500, mensaje: 'Hubo un error al querer crear un usuario' };
     }
 }
 
