@@ -21,68 +21,66 @@ Rol.belongsToMany(Usuario, {
     otherKey: 'usuarioId'
 });
 
-
 // Relation 1:N Usuario - Curso
 Usuario.hasMany(Curso, {
-    foreinkey: "usuario_id",
+    foreignKey: "usuarioId",
     sourceKey: "id",
 });
 
-Curso.belongsTo(Usuario, { foreinkey: "usuario_id", targetId: "id" });
+Curso.belongsTo(Usuario, { foreignKey: "usuarioId", targetId: "id", as: 'usuario' });
 
-// Relation 1:N Docente - Curso
-Docente.hasMany(Curso, {
-    foreinkey: "docente_id",
+// Misma relacion de 1:N Usuario - Curso pero llamado docenteId
+Usuario.hasMany(Curso, {
+    foreignKey: "docenteId",
     sourceKey: "id",
 });
 
-Curso.belongsTo(Docente, { foreinkey: "docente_id", targetId: "id" });
+Curso.belongsTo(Usuario, { foreignKey: "docenteId", targetId: "id", as: 'docente' });
 
 // Relation 1:N Categoria - Curso
 Categoria.hasMany(Curso, {
-    foreinkey: "categoria_id",
-    sourceKey: "id",
-    name: "categoriaId"
+    foreignKey: "categoriaId",
+    sourceKey: "id"
 });
 
-Curso.belongsTo(Categoria, { foreinkey: "categoria_id", targetId: "id", name: "categoriaId" });
+Curso.belongsTo(Categoria, { foreignKey: "categoriaId", targetId: "id", as: 'categoria' });
 
 // Relation 1:N Usuario - Categoria
 Usuario.hasMany(Categoria, {
-    foreinkey: "usuario_id",
+    foreignKey: "usuarioId",
     sourceKey: "id",
 });
 
-Categoria.belongsTo(Usuario, { foreinkey: "usuario_id", targetId: "id" });
+Categoria.belongsTo(Usuario, { foreignKey: "usuarioId", targetId: "id" });
 
 // Relation 1:N Curso - Asistencia
 Curso.hasMany(Asistencia, {
-    foreinkey: "curso_id",
+    foreignKey: "cursoId",
     sourceKey: "id",
 });
 
-Asistencia.belongsTo(Curso, { foreinkey: "curso_id", targetId: "id" });
+Asistencia.belongsTo(Curso, { foreignKey: "cursoId", targetId: "id" });
 
 // Relation 1:N Usuario - Asistencia
 Usuario.hasMany(Asistencia, {
-    foreinkey: "usuario_id",
+    foreignKey: "usuarioId",
     sourceKey: "id",
 });
 
-Asistencia.belongsTo(Usuario, { foreinkey: "usuario_id", targetId: "id" });
+Asistencia.belongsTo(Usuario, { foreignKey: "usuarioId", targetId: "id" });
 
 // Relation 1:N Usuario - Pago
 Usuario.hasMany(Pago, {
-    foreinkey: "usuario_id",
+    foreignKey: "usuarioId",
     sourceKey: "id",
 });
 
-Pago.belongsTo(Usuario, { foreinkey: "usuario_id", targetId: "id" });
+Pago.belongsTo(Usuario, { foreignKey: "usuarioId", targetId: "id" });
 
 // Relation 1:N Usuario - Docente
 Usuario.hasMany(Docente, {
-    foreinkey: "usuario_id",
+    foreignKey: "usuarioId",
     sourceKey: "id",
 });
 
-Docente.belongsTo(Usuario, { foreinkey: "usuario_id", targetId: "id" });
+Docente.belongsTo(Usuario, { foreignKey: "usuarioId", targetId: "id" });

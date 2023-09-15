@@ -3,7 +3,6 @@ import sequelize from "../config/database.config.js";
 
 const Curso = sequelize.define(
     "curso", {
-
         id: {
             type: DataTypes.INTEGER,
             primaryKey: true,
@@ -11,7 +10,8 @@ const Curso = sequelize.define(
         },
         nombre: {
             type: DataTypes.STRING(50),
-            allowNull: false
+            allowNull: false,
+            unique: true
         },
         descripcion: {
             type: DataTypes.TEXT,
@@ -41,6 +41,14 @@ const Curso = sequelize.define(
             type: DataTypes.DECIMAL(16, 2),
             allowNull: false
         },
+        slug: {
+            type: DataTypes.STRING,
+            allowNull: false
+        },
+        // docenteId: {
+        //     type: DataTypes.INTEGER,
+        //     allowNull: false
+        // },
         deletedAt: {
             type: DataTypes.DATE,
             allowNull: true,

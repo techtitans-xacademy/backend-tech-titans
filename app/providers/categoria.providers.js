@@ -41,7 +41,7 @@ export const getCategoriasProvider = async(limit, page, borrado) => {
             offset,
             attributes: { exclude: ['deletedAt', 'createdAt', 'updatedAt', 'usuarioId'] },
             order: [
-                ["nombre", "ASC"]
+                ["id", "ASC"]
             ],
             include: [{
                 model: Usuario,
@@ -54,7 +54,7 @@ export const getCategoriasProvider = async(limit, page, borrado) => {
             return {
                 statusCode: 200,
                 data: categorias,
-                pagination: {
+                paginacion: {
                     page,
                     limit,
                     total: size,
