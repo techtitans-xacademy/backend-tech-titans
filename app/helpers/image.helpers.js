@@ -40,13 +40,11 @@ export const checkFolderCreate = (folder) => {
 }
 
 export const deleteImageStorage = (folder, name) => {
-    fs.stat(`./uploads/${folder}/${name}`, (err) => {
-        if (!err) {
-            fs.unlink(`./uploads/${folder}/${name}`, (info, err) => {
-                if (info) {
-                    logger.info(`Se borro la imagen ${name} de la carpeta ${folder}`);
-                    console.log(`Se borro la imagen ${name} de la carpeta ${folder}`);
-                }
+    fs.stat(`./uploads/${folder}/${name}`, (err, info) => {
+        if (info) {
+            fs.unlink(`./uploads/${folder}/${name}`, (err, info) => {
+                logger.info(`Se borro la imagen ${name} de la carpeta ${folder}`);
+                console.log(`Se borro la imagen ${name} de la carpeta ${folder}`);
                 if (err) {
                     console.log("Hubo un error al borrar el archivo: " + err);
                     logger.error('No hay imagen para borrar')
