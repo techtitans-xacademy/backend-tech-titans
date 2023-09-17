@@ -22,44 +22,32 @@ export const getRolesProvider = async() => {
 
 export const gestionarRolesDeUsuarioProvider = async(id, roles, userId) => {
     try {
-        let arrayRoles = [];
-        let arrayRolesQ = [];
-
         const usuario = await Usuario.findByPk(id);
+
         if (!usuario) {
-            return { statusCode: 404, mensaje: 'Usuario no encontrado' };
+            return { statusCode: 400, mensaje: 'Usuario no encontrado' }
         }
 
-        if (userId === id) return { statusCode: 400, mensaje: 'No tienes permiso para eliminar el rol a tu propio usuario' }
+        if (userId === id) return { statusCode: 400, mensaje: 'No tienes permiso para cambiar el rol a tu propio usuario' }
 
         const rolesActuales = await usuario.getRols();
 
-        const rolesAgregar = roles.filter(role => !rolesActuales.some(rolActual => rolActual.nombre === role));
+        const nuevosRolesSet = new Set();
+        for (const rol of roles) {
+            const rolUser = await Rol.findOne({ where: { nombre: rol } });
 
-        const rolesQuitar = rolesActuales.filter(rolActual => !roles.includes(rolActual.nombre));
-
-        rolesActuales.forEach(rol => {
-            arrayRoles.push(rol);
-        })
-        rolesQuitar.forEach(rol => {
-            if (rol.nombre === 'estudiante') return;
-            arrayRolesQ.push(rol);
-        });
-
-        if (rolesAgregar.length > 0) {
-            const rolesAAgregar = await Rol.findAll({ where: { nombre: rolesAgregar } });
-            rolesAAgregar.forEach(role => arrayRoles.push(role))
-            await usuario.setRols(arrayRoles);
-            console.log(`Se agregaron roles al usuario ${usuario.email}`);
-            return { statusCode: 200, mensaje: `Se agregaron roles al usuario ${usuario.email}` }
-        } else {
-            if (arrayRolesQ.length > 0) {
-                await usuario.removeRols(arrayRolesQ);
-                console.log(`Se eliminaron los roles de usuario ${usuario.email}`);
-                return { statusCode: 200, mensaje: `Se eliminaron los roles de usuario para esta cuenta: ${usuario.email}` }
-            } else {
-                return { statusCode: 403, mensaje: 'No está permitido eliminar el rol de estudiante.' };
+            if (rolUser) {
+                nuevosRolesSet.add(rolUser);
             }
+        }
+
+        await usuario.removeRols([...rolesActuales]);
+
+        await usuario.setRols([...nuevosRolesSet]);
+
+        return {
+            statusCode: 200,
+            mensaje: 'Se le ha actualizado con éxito los roles al usuario'
         }
 
     } catch (error) {

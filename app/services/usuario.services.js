@@ -49,12 +49,28 @@ export const newUsuarioService = async(body) => {
 
 export const updateUsuarioService = async(params, body, files) => {
     const { id } = params;
-    const { nombre, apellido } = body;
+    const { nombre, apellido, password = '', confirm_password = '' } = body;
     const { imageFile } = files;
 
-    let user = {
-        nombre,
-        apellido
+    if (password != confirm_password) {
+        return {
+            statusCode: 404,
+            mensaje: 'Las contraseñas ingresada no coinciden'
+        }
+    }
+
+    let user = {}
+    if (password != '') {
+        user = {
+            nombre,
+            apellido,
+            password: bcrypt.hashSync(password, 8)
+        }
+    } else {
+        user = {
+            nombre,
+            apellido
+        }
     }
 
     return await updateUsuarioProvider(id, user, imageFile);

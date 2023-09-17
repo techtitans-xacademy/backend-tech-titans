@@ -5,6 +5,7 @@ import { checkFolderCreate } from "../helpers/image.helpers.js";
 import { changeEstadoUsuario, deleteUsuario, getUsuarioById, getUsuarioLogueado, getUsuarios, getUsuariosByRoleDocente, newUsuario, restoreUsuario, updateUsuario } from "../controllers/usuario.controller.js";
 import { new_user, usuario_validator, usuario_validator_estado } from "../validations/usuario.validation.js";
 import { checkDuplicateEmail, checkRolesExisted, checkValidEmail } from "../middlewares/register.middleware.js";
+import { addorquiteRoles, getRoles } from "../controllers/rol.controllers.js";
 checkFolderCreate('usuarios');
 const path = multiparty({ uploadDir: './uploads/usuarios', limit: '50mb' });
 const router = Router();
@@ -21,6 +22,8 @@ router.put('/usuario/:id/editar', [path, isLogged, usuario_validator], updateUsu
 router.put('/usuario/:id/estado', [isLogged, usuario_validator_estado], changeEstadoUsuario)
 router.delete('/usuario/:id/borrar', [isLogged], deleteUsuario)
 router.post('/usuario/:id/restaurar', [isLogged], restoreUsuario)
+router.get('/usuarios/roles', [isLogged, isAdmin], getRoles)
+router.post('/usuarios/roles', [isLogged, isAdmin], addorquiteRoles)
 
 
 export default router;

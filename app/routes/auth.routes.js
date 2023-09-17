@@ -3,7 +3,7 @@ import { checkDuplicateEmail, checkRolesExisted, checkValidEmail } from "../midd
 import { forgotPasswordUser, loginUser, newPasswordUser, reactiveUser, recoveryPasswordUser, refreshTokenUser, registerUser, verifyNewUser, verifyUser } from "../controllers/auth.controllers.js";
 import { forgot_password, login_user, recovery_pass, refresh_token, register_user } from "../validations/auth.validations.js";
 import { isAdmin, isLogged } from "../middlewares/verifyUser.middleware.js";
-import { addorquiteRoles, getRoles } from "../controllers/rol.controllers.js";
+
 
 
 const router = Router();
@@ -29,9 +29,5 @@ router.post('/nueva-clave/:token', recovery_pass, newPasswordUser);
 router.post('/refresh-token', [isLogged], refresh_token, refreshTokenUser)
 
 router.post('/reactivar-cuenta', [checkValidEmail], forgot_password, reactiveUser);
-
-router.get('/roles', [isLogged, isAdmin], getRoles)
-
-router.post('/roles', [isLogged, isAdmin], addorquiteRoles)
 
 export default router;
