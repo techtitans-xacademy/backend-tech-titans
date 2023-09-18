@@ -187,16 +187,26 @@ export const getCursoByIdProvider = async(id) => {
                 id,
             },
             attributes: {
-                exclude: ["deletedAt", "createdAt", "updatedAt", "usuarioId"],
+                exclude: ["deletedAt", "createdAt", "updatedAt", "usuarioId", "categoriaId", "docenteId"],
             },
             order: [
                 ["nombre", "ASC"]
             ],
             include: [{
-                model: Usuario,
-                as: "usuario",
-                attributes: ["nombre", "apellido", "email"],
-            }, ],
+                    model: Categoria,
+                    as: 'categoria',
+                    attributes: ["nombre"],
+                }, {
+                    model: Usuario,
+                    as: "usuario",
+                    attributes: ["nombre", "apellido", "email"],
+                },
+                {
+                    model: Usuario,
+                    as: 'docente',
+                    attributes: ["nombre", "apellido"],
+                }
+            ],
         });
 
         if (curso === null)
@@ -227,16 +237,26 @@ export const getCursoBySlugProvider = async(slug) => {
                 slug,
             },
             attributes: {
-                exclude: ["deletedAt", "createdAt", "updatedAt", "usuarioId"],
+                exclude: ["deletedAt", "createdAt", "updatedAt", "usuarioId", "categoriaId", "docenteId"],
             },
             order: [
                 ["nombre", "ASC"]
             ],
             include: [{
-                model: Usuario,
-                as: "usuario",
-                attributes: ["nombre", "apellido", "email"],
-            }, ],
+                    model: Categoria,
+                    as: 'categoria',
+                    attributes: ["nombre"],
+                }, {
+                    model: Usuario,
+                    as: "usuario",
+                    attributes: ["nombre", "apellido", "email"],
+                },
+                {
+                    model: Usuario,
+                    as: 'docente',
+                    attributes: ["nombre", "apellido"],
+                }
+            ],
         });
 
         if (curso === null)
