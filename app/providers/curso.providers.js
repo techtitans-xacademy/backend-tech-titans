@@ -55,16 +55,16 @@ export const getCursosProvider = async(limit, page, borrado) => {
             include: [{
                     model: Categoria,
                     as: 'categoria',
-                    attributes: ["nombre"],
+                    attributes: ["id", "nombre"],
                 }, {
                     model: Usuario,
                     as: "usuario",
-                    attributes: ["nombre", "apellido", "email"],
+                    attributes: ["id", "nombre", "apellido", "email"],
                 },
                 {
                     model: Usuario,
                     as: 'docente',
-                    attributes: ["nombre", "apellido"],
+                    attributes: ["id", "nombre", "apellido"],
                 }
             ],
         });
@@ -140,16 +140,16 @@ export const getCursosByUserLoggedProvider = async(limit, page, borrado, userId)
             include: [{
                     model: Categoria,
                     as: 'categoria',
-                    attributes: ["nombre"],
+                    attributes: ["id", "nombre"],
                 }, {
                     model: Usuario,
                     as: "usuario",
-                    attributes: ["nombre", "apellido", "email"],
+                    attributes: ["id", "nombre", "apellido", "email"],
                 },
                 {
                     model: Usuario,
                     as: 'docente',
-                    attributes: ["nombre", "apellido"],
+                    attributes: ["id", "nombre", "apellido"],
                 }
             ],
         });
@@ -195,16 +195,16 @@ export const getCursoByIdProvider = async(id) => {
             include: [{
                     model: Categoria,
                     as: 'categoria',
-                    attributes: ["nombre"],
+                    attributes: ["id", "nombre"],
                 }, {
                     model: Usuario,
                     as: "usuario",
-                    attributes: ["nombre", "apellido", "email"],
+                    attributes: ["id", "nombre", "apellido", "email"],
                 },
                 {
                     model: Usuario,
                     as: 'docente',
-                    attributes: ["nombre", "apellido"],
+                    attributes: ["id", "nombre", "apellido"],
                 }
             ],
         });
@@ -245,16 +245,16 @@ export const getCursoBySlugProvider = async(slug) => {
             include: [{
                     model: Categoria,
                     as: 'categoria',
-                    attributes: ["nombre"],
+                    attributes: ["id", "nombre"],
                 }, {
                     model: Usuario,
                     as: "usuario",
-                    attributes: ["nombre", "apellido", "email"],
+                    attributes: ["id", "nombre", "apellido", "email"],
                 },
                 {
                     model: Usuario,
                     as: 'docente',
-                    attributes: ["nombre", "apellido"],
+                    attributes: ["id", "nombre", "apellido"],
                 }
             ],
         });
