@@ -279,6 +279,77 @@ export const getCursoBySlugProvider = async(slug) => {
     }
 };
 
+export const getCursosByCategoriaProvider = async(limit, page, slug) => {
+    try {
+        const categoria = await Categoria.findOne({ where: { slug } });
+
+        const size = await Curso.count({
+            paranoid: false,
+            where: {
+                categoriaId: categoria.id
+            },
+        });
+
+        const totalPages = Math.ceil(size / limit);
+        const offset = (page - 1) * limit;
+        let nextPage = page + 1;
+        let lastPage = page - 1;
+
+        const cursos = await Curso.findAll({
+            where: {
+                categoriaId: categoria.id
+            },
+            paranoid: false,
+            limit,
+            offset,
+            attributes: {
+                exclude: ["deletedAt", "createdAt", "updatedAt", "usuarioId", "categoriaId", 'docenteId'],
+            },
+            order: [
+                ["id", "ASC"]
+            ],
+            include: [{
+                    model: Categoria,
+                    as: 'categoria',
+                    attributes: ["id", "nombre"],
+                }, {
+                    model: Usuario,
+                    as: "usuario",
+                    attributes: ["id", "nombre", "apellido", "email"],
+                },
+                {
+                    model: Usuario,
+                    as: 'docente',
+                    attributes: ["id", "nombre", "apellido"],
+                }
+            ],
+        })
+        if (size > 0) {
+            return {
+                statusCode: 200,
+                data: cursos,
+                pagination: {
+                    page,
+                    limit,
+                    total: size,
+                    totalPages,
+                    lastPage,
+                    nextPage,
+                },
+            };
+        } else {
+            return {
+                statusCode: 200,
+                data: [],
+            };
+        }
+    } catch (error) {
+        console.error("No se pudieron obtener los cursos de esa categoria:", error.message);
+        logger.error("No se pudieron obtener los cursos de esa categoria:", error.message);
+        return { statusCode: 500, mensaje: "No se pudieron obtener los cursos de la categoria seleccionada" };
+    }
+}
+
 export const newCursoProvider = async(cursoData, imageFile) => {
     try {
         if (imageFile != null) {

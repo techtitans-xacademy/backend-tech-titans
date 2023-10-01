@@ -1,4 +1,4 @@
-import { deleteCursoService, getCursoByIdService, getCursoBySlugService, getCursosByUserLoggedServices, getCursosServices, newCursoService, restoreCursoService, updateCursoService } from "../services/curso.services.js";
+import { deleteCursoService, getCursoByIdService, getCursoBySlugService, getCursosByCategoriaService, getCursosByUserLoggedServices, getCursosServices, newCursoService, restoreCursoService, updateCursoService } from "../services/curso.services.js";
 
 
 export const getCursos = async(req, res) => {
@@ -40,6 +40,17 @@ export const getCursoByIdOrSlug = async(req, res) => {
     } catch (error) {
         console.log(error.message);
         res.status(500).json({ mensaje: 'Error al obtener el curso buscado' });
+    }
+}
+
+export const getCursosByCategoria = async(req, res) => {
+    try {
+        const cursosService = await getCursosByCategoriaService(req.query, req.params);
+        const { statusCode, ...responseData } = cursosService;
+        res.status(statusCode).json(responseData);
+    } catch (error) {
+        console.log(error.message);
+        res.status(500).json({ mensaje: 'Error al obtener los cursos por su categoria' });
     }
 }
 

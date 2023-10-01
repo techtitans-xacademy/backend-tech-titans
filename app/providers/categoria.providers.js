@@ -1,5 +1,6 @@
 import Categoria from "../models/categoria.model.js";
 import Usuario from "../models/usuario.model.js";
+import createSlug from "../utils/createSlug.js";
 import { logger } from "../utils/winston.logger.js";
 
 import { Op } from 'sequelize';
@@ -114,8 +115,10 @@ export const getCategoriasPorIdProvider = async(id) => {
 
 export const newCategoriaProvider = async(nombre, userId) => {
     try {
+        const slug = createSlug(nombre);
         const categoria = await Categoria.create({
             nombre,
+            slug,
             usuarioId: userId
         });
         if (categoria) {
@@ -134,8 +137,10 @@ export const newCategoriaProvider = async(nombre, userId) => {
 
 export const updateCategoriaProvider = async(id, nombre, userId) => {
     try {
+        const slug = createSlug(nombre);
         const categoria = await Categoria.update({
             nombre,
+            slug,
             usuarioId: userId
         }, { where: { id } });
         if (categoria) {

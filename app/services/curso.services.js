@@ -1,5 +1,5 @@
 import { config } from "dotenv";
-import { deleteCursoProvider, getCursoByIdProvider, getCursoBySlugProvider, getCursosByUserLoggedProvider, getCursosProvider, newCursoProvider, restoreCursoProvider, updateCursoProvider } from "../providers/curso.providers.js";
+import { deleteCursoProvider, getCursoByIdProvider, getCursoBySlugProvider, getCursosByCategoriaProvider, getCursosByUserLoggedProvider, getCursosProvider, newCursoProvider, restoreCursoProvider, updateCursoProvider } from "../providers/curso.providers.js";
 import { getCategoriasPorIdProvider } from "../providers/categoria.providers.js";
 config();
 
@@ -30,6 +30,16 @@ export const getCursoByIdService = async(id) => {
 
 export const getCursoBySlugService = async(slug) => {
     return await getCursoBySlugProvider(slug);
+}
+
+export const getCursosByCategoriaService = async(query, params) => {
+    const { l, p } = query;
+    const { slug } = params;
+
+    const limit = parseInt(l) || parseInt(process.env.PAGE_SIZE);
+    const page = parseInt(p) || 1;
+
+    return await getCursosByCategoriaProvider(limit, page, slug);
 }
 
 export const newCursoService = async(body, files, userId) => {
