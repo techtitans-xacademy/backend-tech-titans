@@ -352,7 +352,7 @@ export const getCursosByCategoriaProvider = async(limit, page, slug) => {
 
 export const newCursoProvider = async(cursoData, imageFile) => {
     try {
-        if (imageFile != null) {
+        if (imageFile != null || imageFile != undefined) {
             const img_path = imageFile.path;
             const name_img = path.normalize(img_path).split(path.sep);
             let portada_name = name_img[2];
@@ -423,7 +423,7 @@ export const updateCursoProvider = async(id, cursoData, imageFile) => {
         const curso = await Curso.findByPk(id);
         if (!curso)
             return { statusCode: 404, message: "No se encontro un curso con ese id" };
-        if (imageFile != null) {
+        if (imageFile != null || imageFile != undefined) {
             if (curso.public_id !== null) {
                 await cloudinary.uploader.destroy(curso.public_id);
             }
