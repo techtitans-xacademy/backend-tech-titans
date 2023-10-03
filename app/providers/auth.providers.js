@@ -88,7 +88,8 @@ export const verifyUserProvider = async(token) => {
                     let link = `${front}/verificar/${token_user}`;
                     let bodyMail = {
                         name: user.nombre,
-                        link: link
+                        link: link,
+                        year: new Date().getFullYear()
                     };
                     let hoy = new Date();
                     user.token = token_user;

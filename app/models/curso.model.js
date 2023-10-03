@@ -41,6 +41,11 @@ const Curso = sequelize.define(
             type: DataTypes.DECIMAL(16, 2),
             allowNull: false
         },
+        lugar: {
+            type: DataTypes.STRING,
+            allowNull: false,
+            defaultValue: 'Córdoba'
+        },
         slug: {
             type: DataTypes.STRING,
             allowNull: false

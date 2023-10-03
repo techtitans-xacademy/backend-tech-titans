@@ -1,5 +1,5 @@
 import { config } from "dotenv";
-import { deleteCategoriaProvider, getCategoriasPorIdProvider, getCategoriasProvider, newCategoriaProvider, restoreCategoriaProvider, updateCategoriaProvider } from "../providers/categoria.providers.js"
+import { deleteCategoriaProvider, getCategoriasPorIdProvider, getCategoriasPorSlugProvider, getCategoriasProvider, newCategoriaProvider, restoreCategoriaProvider, updateCategoriaProvider } from "../providers/categoria.providers.js"
 config();
 
 export const getCategoriasService = async(query) => {
@@ -12,10 +12,12 @@ export const getCategoriasService = async(query) => {
     return getCategoriasProvider(limit, page, deleteReg);
 }
 
-export const getCategoriasPorIdService = async(params) => {
-    const { id } = params;
-
+export const getCategoriasPorIdService = async(id) => {
     return getCategoriasPorIdProvider(id);
+}
+
+export const getCategoriasPorSlugService = async(slug) => {
+    return getCategoriasPorSlugProvider(slug);
 }
 
 export const newCategoriaService = async(body, userId) => {

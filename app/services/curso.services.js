@@ -1,6 +1,6 @@
 import { config } from "dotenv";
 import { deleteCursoProvider, getCursoByIdProvider, getCursoBySlugProvider, getCursosByCategoriaProvider, getCursosByUserLoggedProvider, getCursosProvider, newCursoProvider, restoreCursoProvider, updateCursoProvider } from "../providers/curso.providers.js";
-import { getCategoriasPorIdProvider } from "../providers/categoria.providers.js";
+import { getCategoriasPorIdProvider } from "../providers/categoria.providers.js"; // Por que lo puse aca?
 config();
 
 export const getCursosServices = async(query) => {
@@ -43,7 +43,7 @@ export const getCursosByCategoriaService = async(query, params) => {
 }
 
 export const newCursoService = async(body, files, userId) => {
-    const { nombre, descripcion, dia, hora, duracion, precio, categoriaId, docenteId } = body
+    const { nombre, descripcion, dia, hora, duracion, precio, lugar, categoriaId, docenteId } = body
     const { imageFile } = files
 
 
@@ -63,6 +63,7 @@ export const newCursoService = async(body, files, userId) => {
         'hora_curso': hora,
         duracion,
         precio,
+        lugar,
         categoriaId,
         usuarioId: userId,
         docenteId
@@ -73,7 +74,7 @@ export const newCursoService = async(body, files, userId) => {
 
 export const updateCursoService = async(params, body, files, userId) => {
     const { id } = params;
-    const { nombre, descripcion, dia, hora, duracion, precio, categoriaId } = body
+    const { nombre, descripcion, dia, hora, duracion, precio, lugar, categoriaId } = body
     const { imageFile } = files
 
     const cursoObj = {
@@ -83,6 +84,7 @@ export const updateCursoService = async(params, body, files, userId) => {
         'hora_curso': hora,
         duracion,
         precio,
+        lugar,
         categoriaId,
         usuarioId: userId
     }

@@ -10,7 +10,8 @@ const Categoria = sequelize.define(
         },
         nombre: {
             type: DataTypes.STRING(100),
-            allowNull: false
+            allowNull: false,
+            unique: true
         },
         slug: {
             type: DataTypes.STRING,

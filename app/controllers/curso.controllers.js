@@ -25,18 +25,41 @@ export const getCursosByUserLogged = async(req, res) => {
 
 export const getCursoByIdOrSlug = async(req, res) => {
     try {
-        if (!isNaN(req.params.params)) {
-            const id = req.params.params;
-            const cursoService = await getCursoByIdService(id);
-            const { statusCode, ...responseData } = cursoService;
-            res.status(statusCode).json(responseData);
-        } else {
-            // Si no es un número, se asume que es una búsqueda por slug
-            const slug = req.params.params;
-            const cursoService = await getCursoBySlugService(slug);
-            const { statusCode, ...responseData } = cursoService;
-            res.status(statusCode).json(responseData);
+        const input = req.params.params;
+
+        switch (true) {
+            case /^\d+$/.test(input):
+                {
+                    const cursoService = await getCursoByIdService(input);
+                    const { statusCode, ...responseData } = cursoService;
+                    res.status(statusCode).json(responseData);
+                    break;
+                }
+            case /^[a-zA-Z0-9-]+$/.test(input):
+                {
+                    const cursoService = await getCursoBySlugService(input);
+                    const { statusCode, ...responseData } = cursoService;
+                    res.status(statusCode).json(responseData);
+                    break;
+                }
+            default:
+                {
+                    res.status(400).json({ mensaje: "La cadena debe contener solo letras y números." });
+                    break;
+                }
         }
+        // if (!isNaN(req.params.params)) {
+        //     const id = req.params.params;
+        //     const cursoService = await getCursoByIdService(id);
+        //     const { statusCode, ...responseData } = cursoService;
+        //     res.status(statusCode).json(responseData);
+        // } else {
+        //     // Si no es un número, se asume que es una búsqueda por slug
+        //     const slug = req.params.params;
+        //     const cursoService = await getCursoBySlugService(slug);
+        //     const { statusCode, ...responseData } = cursoService;
+        //     res.status(statusCode).json(responseData);
+        // }
     } catch (error) {
         console.log(error.message);
         res.status(500).json({ mensaje: 'Error al obtener el curso buscado' });

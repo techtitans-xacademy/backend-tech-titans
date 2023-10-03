@@ -14,13 +14,22 @@ const transportApi = new DailyRotateFile({
     maxFiles: '15d',
 });
 
+const transportApiError = new DailyRotateFile({
+    filename: `${__dirname}/../../logs/errors-${process.env.APP}-%DATE%.log`,
+    datePattern: 'DD-MM-YYYY',
+    zippedArchive: true,
+    maxSize: '10m',
+    maxFiles: '15d',
+    level: 'error'
+}, );
+
 const appendTimestamp = winston.format((info) =>
     Object.assign(info, { timestamp: moment().format() })
 );
 
 
 const logger = winston.createLogger({
-    level: process.env.LOG_LEVEL,
+    level: process.env.LOG_LEVEL | "info",
     format: winston.format.combine(
         winston.format.splat(),
         winston.format.metadata(),
@@ -28,7 +37,7 @@ const logger = winston.createLogger({
         winston.format.errors({ stack: true }),
         winston.format.json()
     ),
-    transports: [transportApi],
+    transports: [transportApi, transportApiError],
 });
 
 

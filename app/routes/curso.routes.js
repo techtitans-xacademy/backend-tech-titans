@@ -18,5 +18,4 @@ router.put('/curso/:id/editar', [path, isLogged, isAdmin, curso_validate], updat
 router.delete('/curso/:id/borrar', [isLogged, isAdmin], deleteCurso)
 router.post('/curso/:id/restaurar', [isLogged, isAdmin], restoreCurso)
 
-
 export default router;

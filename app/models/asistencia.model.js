@@ -7,13 +7,19 @@ const Asistencia = sequelize.define("asistencia", {
         primaryKey: true,
         autoIncrement: true,
     },
+    codigoInscripcion: {
+        type: DataTypes.STRING(36),
+        allowNull: true,
+    },
     asistio: {
         type: DataTypes.BOOLEAN,
         allowNull: false,
+        defaultValue: false
     },
     puntaje: {
-        type: DataTypes.INTEGER,
-        allowNull: true
+        type: DataTypes.ENUM(['No calificado', 'Desaprobado', 'Aprobado']),
+        allowNull: false,
+        defaultValue: 'No calificado'
     },
     deletedAt: {
         type: DataTypes.DATE,

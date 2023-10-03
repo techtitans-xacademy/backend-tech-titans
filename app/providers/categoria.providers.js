@@ -113,6 +113,42 @@ export const getCategoriasPorIdProvider = async(id) => {
     }
 }
 
+export const getCategoriasPorSlugProvider = async(slug) => {
+    try {
+        const categoria = await Categoria.findOne({
+            paranoid: true,
+            where: {
+                slug
+            },
+            attributes: { exclude: ['deletedAt', 'createdAt', 'updatedAt', 'usuarioId', ] },
+            order: [
+                ["nombre", "ASC"]
+            ],
+            include: [{
+                model: Usuario,
+                as: 'usuario',
+                attributes: ['nombre', 'apellido', 'email']
+            }]
+        });
+
+        if (categoria !== null) {
+            return {
+                statusCode: 200,
+                data: categoria
+            }
+        } else {
+            return {
+                statusCode: 404,
+                mensaje: "No se encontro ninguna categoria con el slug buscado"
+            }
+        }
+    } catch (error) {
+        console.error('Hubo un error al querer obtener una categoria: ', error.message);
+        logger.error('Hubo un error al querer obtener una categoria: ', error.message);
+        return { statusCode: 500, mensaje: 'Hubo un error al querer obtener una categoria' };
+    }
+}
+
 export const newCategoriaProvider = async(nombre, userId) => {
     try {
         const slug = createSlug(nombre);

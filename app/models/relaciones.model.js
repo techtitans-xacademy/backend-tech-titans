@@ -59,15 +59,23 @@ Curso.hasMany(Asistencia, {
     sourceKey: "id",
 });
 
-Asistencia.belongsTo(Curso, { foreignKey: "cursoId", targetId: "id" });
+Asistencia.belongsTo(Curso, { foreignKey: "cursoId", targetId: "id", as: "curso" });
 
-// Relation 1:N Usuario - Asistencia
+// Relation 1:N Usuario - Asistencia - como docente
 Usuario.hasMany(Asistencia, {
-    foreignKey: "usuarioId",
+    foreignKey: "docenteId",
     sourceKey: "id",
 });
 
-Asistencia.belongsTo(Usuario, { foreignKey: "usuarioId", targetId: "id" });
+Asistencia.belongsTo(Usuario, { foreignKey: "docenteId", targetId: "id", as: "docente" });
+
+// Relation 1:N Usuario - Asistencia - como estudiante
+Usuario.hasMany(Asistencia, {
+    foreignKey: "estudianteId",
+    sourceKey: "id",
+});
+
+Asistencia.belongsTo(Usuario, { foreignKey: "estudianteId", targetId: "id", as: "estudiante" });
 
 // Relation 1:N Usuario - Pago
 Usuario.hasMany(Pago, {
@@ -76,6 +84,14 @@ Usuario.hasMany(Pago, {
 });
 
 Pago.belongsTo(Usuario, { foreignKey: "usuarioId", targetId: "id" });
+
+// Relation 1:1 Asistencia - Pago
+Asistencia.hasOne(Pago, {
+    foreignKey: "inscripcionId",
+    sourceKey: "id",
+});
+
+Pago.belongsTo(Asistencia, { foreignKey: "inscripcionId", targetId: "id", as: "inscripcion" });
 
 // Relation 1:N Usuario - Docente
 Usuario.hasMany(Docente, {

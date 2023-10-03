@@ -8,9 +8,19 @@ const Pago = sequelize.define(
             primaryKey: true,
             autoIncrement: true,
         },
+        tokenPago: {
+            type: DataTypes.STRING,
+            allowNull: true,
+            defaultValue: null
+        },
         pago: {
             type: DataTypes.BOOLEAN,
             allowNull: false
+        },
+        fechaPago: {
+            type: DataTypes.DATE,
+            allowNull: true,
+            defaultValue: null
         },
         deletedAt: {
             type: DataTypes.DATE,
