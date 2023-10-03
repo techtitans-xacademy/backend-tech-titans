@@ -42,7 +42,8 @@ export const registerUserProvider = async(usuario, rolesServ) => {
 
             let bodyMail = {
                 name: `${usuario.nombre} ${usuario.apellido}`,
-                link: `${front}/verificar/${usuario.token}`
+                link: `${front}/verificar/${usuario.token}`,
+                year: new Date().getFullYear()
             };
 
             sendMail(usuario.email, `${usuario.nombre}, por favor verifique su dirección de correo electrónico`, 'confirm', bodyMail);
