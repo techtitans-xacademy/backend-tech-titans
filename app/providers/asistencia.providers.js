@@ -411,7 +411,7 @@ export const enrollaCourseProvider = async(cursoSlug, userId) => {
                 costo: formatoDecimalAEntero(curso.precio),
                 code: tokenPago,
                 link: `${front}/cursos/${curso.slug}`,
-                micuenta: `${front}/perfil/mis-cursos`,
+                micuenta: `${front}/usuario/mis-cursos`,
                 genQR: `${front}/usuario/mis-cursos/${enrollCourse.codigoInscripcion}`,
                 year: new Date().getFullYear()
             }
@@ -463,8 +463,8 @@ export const updateAsistenciaProvider = async(codigoInscripcion, asistenciaBody)
                                 cursoNombre: curso.nombre,
                                 dia: formatoFecha(curso.dia_curso),
                                 hora: formatoHora(curso.hora_curso),
-                                link: `${front}/perfil/mis-cursos/${insc.codigoInscripcion}`,
-                                micuenta: `${front}/perfil/mis-cursos`,
+                                link: `${front}/usuario/mis-cursos/${insc.codigoInscripcion}`,
+                                micuenta: `${front}/usuario/mis-cursos`,
                                 year: new Date().getFullYear()
                             }
                             sendMail(usuario.email, `Felicitaciones!!! Has aprobado con éxito el curso de ${curso.nombre} 🙌🏻`, 'curso_aprobado', bodyMailAprob)
@@ -475,7 +475,7 @@ export const updateAsistenciaProvider = async(codigoInscripcion, asistenciaBody)
                                 cursoNombre: curso.nombre,
                                 dia: formatoFecha(curso.dia_curso),
                                 hora: formatoHora(curso.hora_curso),
-                                micuenta: `${front}/perfil/mis-cursos`,
+                                micuenta: `${front}/usuario/mis-cursos`,
                                 year: new Date().getFullYear()
                             }
                             sendMail(usuario.email, `Lo sentimos mucho! No has aprobado con éxito el curso de ${curso.nombre} 😣`, 'curso_desaprobado', bodyMailDesaprob)
