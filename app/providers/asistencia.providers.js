@@ -359,14 +359,14 @@ export const enrollaCourseProvider = async(cursoSlug, userId) => {
         if (!curso) {
             return {
                 statusCode: 404,
-                mensaje: 'No se ha encontrado un curso con el id ingresado'
+                mensaje: 'No se ha encontrado el curso que estas buscando'
             }
         }
 
         if (!usuario) {
             return {
                 statusCode: 404,
-                mensaje: 'No se ha encontrado un alumno con el id ingresado'
+                mensaje: 'No se ha encontrado el alumno que estas buscando'
             }
         }
 
