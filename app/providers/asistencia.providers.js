@@ -381,6 +381,22 @@ export const enrollaCourseProvider = async(cursoSlug, userId) => {
             }
         }
 
+        const existingInscription = await Asistencia.findOne({
+            where: {
+                cursoId: curso.id,
+                estudianteId: usuario.id
+            }
+        });
+
+        if (existingInscription) {
+            logger.error(`¡El alumno ${usuario.nombre} ${usuario.apellido} quizo inscribirse en un curso que ya se inscribió dias atras (${curso.dia_curso})!`);
+            console.log(`¡El alumno ${usuario.nombre} ${usuario.apellido} quizo inscribirse en un curso que ya se inscribió dias atras (${curso.dia_curso})!`);
+            return {
+                statusCode: 400,
+                mensaje: 'Ya estás inscrito en este curso, prueba en otro curso'
+            }
+        }
+
         let data = {
             asistio: false,
             puntaje: "No calificado",
