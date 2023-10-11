@@ -120,7 +120,7 @@ export const getUsuariosByRoleDocenteProvider = async() => {
     try {
         const usuariosConDocenteRol = await sequelize.query(
             `
-            SELECT u.id, CONCAT(u.nombre, ' ', u.apellido) docente
+            SELECT u.id, CONCAT(u.nombre, ' ', u.apellido) docente, u.email, u.avatar
             FROM usuarios u
             INNER JOIN usuarios_roles ur ON u.id = ur.usuarioId
             INNER JOIN roles r ON ur.rolId = r.id

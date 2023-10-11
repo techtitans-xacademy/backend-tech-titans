@@ -6,6 +6,8 @@ import createSlug from "../utils/createSlug.js";
 import path from "path";
 import Usuario from "../models/usuario.model.js";
 import Categoria from "../models/categoria.model.js";
+import Asistencia from "../models/asistencia.model.js";
+import Pago from "../models/pago.model.js";
 import { Op } from "sequelize";
 import { config } from "dotenv";
 config();
@@ -150,6 +152,25 @@ export const getCursosByUserLoggedProvider = async(limit, page, borrado, userId)
                     model: Usuario,
                     as: 'docente',
                     attributes: ["id", "nombre", "apellido"],
+                },
+                {
+                    model: Asistencia,
+                    as: 'asistencia',
+                    // attributes: ["nombre", "descripcion", "portada", "dia_curso", "hora_curso", "duracion", "precio", "slug", "categoria", "usuario", "docente"],
+                    attributes: {
+                        exclude: ["deletedAt", "createdAt", "updatedAt", "cursoId", "docenteId", 'estudianteId'],
+                    },
+                    include: [{
+                            model: Usuario,
+                            as: "estudiante",
+                            attributes: ["id", "nombre", "apellido", "email"],
+                        },
+                        {
+                            model: Pago,
+                            as: "pago",
+                            attributes: ["id", "tokenPago", "fechaPago", "pago"],
+                        }
+                    ],
                 }
             ],
         });
