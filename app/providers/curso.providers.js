@@ -276,6 +276,25 @@ export const getCursoBySlugProvider = async(slug) => {
                     model: Usuario,
                     as: 'docente',
                     attributes: ["id", "nombre", "apellido"],
+                },
+                {
+                    model: Asistencia,
+                    as: 'asistencia',
+                    // attributes: ["nombre", "descripcion", "portada", "dia_curso", "hora_curso", "duracion", "precio", "slug", "categoria", "usuario", "docente"],
+                    attributes: {
+                        exclude: ["deletedAt", "createdAt", "updatedAt", "cursoId", "docenteId", 'estudianteId'],
+                    },
+                    include: [{
+                            model: Usuario,
+                            as: "estudiante",
+                            attributes: ["id", "nombre", "apellido", "email"],
+                        },
+                        {
+                            model: Pago,
+                            as: "pago",
+                            attributes: ["id", "tokenPago", "fechaPago", "pago"],
+                        }
+                    ],
                 }
             ],
         });
