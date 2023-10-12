@@ -261,7 +261,7 @@ export const getCursosByEstudianteProvider = async(userId) => {
 
 export const getCursosByEstudianteDetailProvider = async(codigoInscripcion, userId) => {
     try {
-        const asistencia = await Asistencia.findAll({
+        const asistencia = await Asistencia.findOne({
             paranoid: true,
             where: { codigoInscripcion, estudianteId: userId },
             attributes: {
@@ -479,7 +479,7 @@ export const updateAsistenciaProvider = async(codigoInscripcion, asistenciaBody)
                                 cursoNombre: curso.nombre,
                                 dia: formatoFecha(curso.dia_curso),
                                 hora: formatoHora(curso.hora_curso),
-                                link: `${front}/usuario/mis-cursos/${insc.codigoInscripcion}`,
+                                link: `${front}/usuario/mis-cursos/inscripcion/${insc.codigoInscripcion}`,
                                 micuenta: `${front}/usuario/mis-cursos`,
                                 year: new Date().getFullYear()
                             }
