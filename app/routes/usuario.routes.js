@@ -13,7 +13,7 @@ const router = Router();
 router.get('/usuarios', [isLogged, isAdmin], getUsuarios);
 router.get('/usuario/:id', [isLogged, isDocenteOrAdmin], getUsuarioById);
 router.get('/me', [isLogged], getUsuarioLogueado);
-router.get('/usuarios/docentes', [isLogged, isDocenteOrAdmin], getUsuariosByRoleDocente)
+router.get('/usuarios/docentes',  getUsuariosByRoleDocente)
 router.post('/usuario/nuevo', [checkDuplicateEmail,
     checkRolesExisted,
     checkValidEmail, isLogged, isAdmin, new_user
