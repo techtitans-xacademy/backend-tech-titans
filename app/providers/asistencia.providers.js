@@ -428,7 +428,7 @@ export const enrollaCourseProvider = async(cursoSlug, userId) => {
                 code: tokenPago,
                 link: `${front}/cursos/${curso.slug}`,
                 micuenta: `${front}/usuario/mis-cursos`,
-                genQR: `${front}/usuario/mis-cursos/${enrollCourse.codigoInscripcion}`,
+                genQR: `${front}/usuario/mis-cursos/inscripcion/${enrollCourse.codigoInscripcion}`,
                 year: new Date().getFullYear()
             }
 
